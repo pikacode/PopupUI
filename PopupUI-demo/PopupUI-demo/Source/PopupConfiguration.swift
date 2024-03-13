@@ -39,6 +39,11 @@ public class PopupConfiguration {
         return config
     }
     
+    func id(_ v: String) -> Self {
+        id = v
+        return self
+    }
+    
 }
 
 extension View {
@@ -51,12 +56,15 @@ extension View {
 
 struct PopupModifier: ViewModifier {
     
-    @StateObject var popup = PopupUI.shared
+    @State var status = PopupUI.Status.shared.id
     
     func body(content: Content) -> some View {
         ZStack {
             
         }
+        .onReceive(PopupUI.Status.shared.$id, perform: { v in
+            status = v
+        })
     }
     
 }

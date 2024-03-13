@@ -10,10 +10,13 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, PopupUI!")
+            Button("Show Popup") {
+                PopupUI
+                    .show {
+                        Text("Hello, PopupUI!")
+                    }
+                    .position(.bottom)
+            }
         }
         .padding()
     }
