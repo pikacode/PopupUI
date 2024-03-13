@@ -7,9 +7,11 @@
 
 import SwiftUI
 
+typealias PopupViewID = String
+
 struct PopupView: View {
         
-    static var sharedId = "PopupView.id.shared"
+    static var sharedId: PopupViewID = "PopupView.id.shared"
     
     @State var content: any View
     

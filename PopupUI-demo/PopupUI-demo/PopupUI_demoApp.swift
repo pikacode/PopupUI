@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@available(iOS 14.0, *)
 @main
 struct PopupUI_demoApp: App {
     var body: some Scene {
@@ -16,3 +17,4 @@ struct PopupUI_demoApp: App {
         }
     }
 }
+

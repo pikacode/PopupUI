@@ -15,7 +15,12 @@ struct ContentView: View {
                     .show {
                         Text("Hello, PopupUI!")
                     }
-                    .position(.bottom)
+                    .from(.bottom, .easeIn, 0.25)
+                    .stay(2)
+                    .to(.left, .easeOut, 0.25)
+            }
+            Button("Hide Popup") {
+                PopupUI.hide()
             }
         }
         .padding()

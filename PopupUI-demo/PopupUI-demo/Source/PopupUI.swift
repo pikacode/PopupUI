@@ -7,6 +7,13 @@
 
 import SwiftUI
 
+extension View {
+    public func popupUI() -> some View {
+        self.modifier(PopupModifier())
+            .environmentObject(PopupUI.Status.shared)
+    }
+}
+
 class PopupUI: ObservableObject {
     
     class Status: ObservableObject {
@@ -14,9 +21,22 @@ class PopupUI: ObservableObject {
         @Published var id = UUID()
     }
     
-    static var popups: [PopupUI] = []
+    static var popups: [PopupUI] = [] {
+        didSet {
+            changeStatus()
+        }
+    }
+    
+    static func changeStatus() {
+        Status.shared.id = UUID()
+    }
     
     var popupView: PopupView
+    
+    var id: PopupViewID {
+        set { popupView.id = newValue }
+        get { popupView.id }
+    }
     
     @Published var isPresented = false
     
@@ -64,14 +84,8 @@ extension PopupUI {
     var configuration: PopupConfiguration { popupView.configuration }
     
     @discardableResult
-    func id(_ v: String) -> Self {
+    func id(_ v: PopupViewID) -> Self {
         configuration.id = v
-        return self
-    }
-    
-    @discardableResult
-    func position(_ v: PopupConfiguration.Position) -> Self {
-        configuration.position = v
         return self
     }
     
@@ -82,14 +96,50 @@ extension PopupUI {
     }
     
     @discardableResult
-    func duration(_ v: TimeInterval) -> Self {
-        configuration.duration = v
+    func background<Background: View>(_ v: Background) -> Self {
+        configuration.background = AnyView(v)
         return self
     }
     
     @discardableResult
-    func animation(_ v: Animation) -> Self {
-        configuration.animation = v
+    func backgroundClick(_ v: @escaping () -> ()) -> Self {
+        configuration.dismissCallback = { _ in v() }
+        return self
+    }
+    
+    @discardableResult
+    func avoidKeyboard(_ v: Bool) -> Self {
+        configuration.isAvoidKeyboard = v
+        return self
+    }
+    
+    @discardableResult
+    func stay(_ v: TimeInterval) -> Self {
+        configuration.stay = v
+        return self
+    }
+    
+    @discardableResult
+    func from(_ position: PopupPosition, _ animation: Animation = .default, _ duration: TimeInterval = 0.25) -> Self {
+        configuration.from = PopupAnimation(position, animation: animation, duration: duration)
+        return self
+    }
+    
+    @discardableResult
+    func to(_ position: PopupPosition, _ animation: Animation = .default, _ duration: TimeInterval = 0.25) -> Self {
+        configuration.to = PopupAnimation(position, animation: animation, duration: duration)
+        return self
+    }
+    
+    @discardableResult
+    func isOpaque(_ v: Bool) -> Self {
+        configuration.isOpaque = v
+        return self
+    }
+    
+    @discardableResult
+    func dismissCallback(_ v: @escaping (PopupViewID) -> ()) -> Self {
+        configuration.dismissCallback = v
         return self
     }
     
