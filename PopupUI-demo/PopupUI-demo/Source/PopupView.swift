@@ -9,25 +9,21 @@ import SwiftUI
 
 typealias PopupViewID = String
 
+enum PopupStatus {
+    case prepare
+    case show
+    case hide
+}
+
 struct PopupView: View {
-    
-    enum Status {
-        case prepare
-        case show
-        case hide
-    }
         
     static var sharedId: PopupViewID = "PopupView.id.shared"
     static var sharedBackground: AnyView = AnyView(Color.clear.opacity(0.4))
     
-    @State var content: any View
+    let content: any View
     @EnvironmentObject var state: PopupUI.State
     
-    @Binding var status: Status {
-        didSet {
-            PopupUI.statusChanged()
-        }
-    }
+    @Binding var status: PopupStatus 
     
     let configuration: PopupConfiguration
     
@@ -81,6 +77,72 @@ struct PopupView: View {
                 return 0.9
             }
         }
+    }
+    
+}
+
+
+// MARK: - Configuration
+extension PopupView {
+    
+    @discardableResult
+    func id(_ v: PopupViewID) -> Self {
+        configuration.id = v
+        return self
+    }
+    
+    @discardableResult
+    func dismissWhenTapOutside(_ v: Bool) -> Self {
+        configuration.dismissWhenTapOutside = v
+        return self
+    }
+    
+    @discardableResult
+    func background<Background: View>(_ v: Background) -> Self {
+        configuration.background = AnyView(v)
+        return self
+    }
+    
+    @discardableResult
+    func backgroundClick(_ v: @escaping () -> ()) -> Self {
+        configuration.dismissCallback = { _ in v() }
+        return self
+    }
+    
+    @discardableResult
+    func avoidKeyboard(_ v: Bool) -> Self {
+        configuration.isAvoidKeyboard = v
+        return self
+    }
+    
+    @discardableResult
+    func stay(_ v: TimeInterval) -> Self {
+        configuration.stay = v
+        return self
+    }
+    
+    @discardableResult
+    func from(_ position: PopupPosition, _ animation: Animation = PopupAnimation.default.animation) -> Self {
+        configuration.from = PopupAnimation(position, animation: animation)
+        return self
+    }
+    
+    @discardableResult
+    func to(_ position: PopupPosition, _ animation: Animation = PopupAnimation.default.animation) -> Self {
+        configuration.to = PopupAnimation(position, animation: animation)
+        return self
+    }
+    
+    @discardableResult
+    func isOpaque(_ v: Bool) -> Self {
+        configuration.isOpaque = v
+        return self
+    }
+    
+    @discardableResult
+    func dismissCallback(_ v: @escaping (PopupViewID) -> ()) -> Self {
+        configuration.dismissCallback = v
+        return self
     }
     
 }

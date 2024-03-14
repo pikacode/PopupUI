@@ -19,7 +19,7 @@ class PopupUI: ObservableObject {
     class State: ObservableObject {
         static let shared = State()
         @Published var id = UUID()
-        @Published var status: PopupView.Status = .prepare
+        @Published var status: PopupStatus = .hide
     }
     
     static var popups: [PopupUI] = [] {
@@ -60,7 +60,7 @@ class PopupUI: ObservableObject {
         let popup = PopupUI()
         let popupView = PopupView(content: AnyView(view), status: popup.$state.status, configuration: configuration)
         popup.popupView = popupView
-        
+
         popups.append(popup)
         popup.prepare()
         return popup
@@ -96,6 +96,7 @@ class PopupUI: ObservableObject {
     }
     
     func hide() {
+//        state.status = .hide
         popupView.hide()
     }
     
@@ -183,3 +184,4 @@ extension DispatchQueue {
         }
     }
 }
+

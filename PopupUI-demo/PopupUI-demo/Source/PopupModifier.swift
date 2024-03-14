@@ -23,6 +23,7 @@ struct PopupModifier: ViewModifier {
             content
             
             Group {
+                
                 PopupView.sharedBackground
                     .onTapGesture {
                         popup?.hide()
@@ -30,12 +31,11 @@ struct PopupModifier: ViewModifier {
                 
                 ForEach(PopupUI.popups, id: \.id) {
                     $0.popupView
+                        .environmentObject($0.state)
                 }
             }
             .edgesIgnoringSafeArea(.all)
 
         }
     }
-    
-   
 }
