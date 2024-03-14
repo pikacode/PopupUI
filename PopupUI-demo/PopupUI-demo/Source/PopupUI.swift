@@ -58,11 +58,11 @@ class PopupUI: ObservableObject {
         config(configuration)
         
         let popup = PopupUI()
-        let popupView = PopupView(content: AnyView(view), status: popup.$state.status, configuration: configuration)
+        let popupView = PopupView(content: AnyView(view), configuration: configuration)
         popup.popupView = popupView
 
         popups.append(popup)
-        popup.prepare()
+//        popup.prepare()
         return popup
     }
     

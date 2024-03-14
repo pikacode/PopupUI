@@ -21,9 +21,9 @@ struct PopupView: View {
     static var sharedBackground: AnyView = AnyView(Color.clear.opacity(0.4))
     
     let content: any View
-    @EnvironmentObject var state: PopupUI.State
+//    @EnvironmentObject var state: PopupUI.State
     
-    @Binding var status: PopupStatus 
+    @State var status: PopupStatus = .prepare
     
     let configuration: PopupConfiguration
     
@@ -40,6 +40,9 @@ struct PopupView: View {
             .scaleEffect(scale)
             .opacity(status == .show ? 1 : 0)
             .animation(status == .show ? configuration.from.animation : configuration.to.animation, value: UUID())
+            .onAppear(perform: {
+                show()
+            })
             .onTapGesture {
                 hide()
             }
