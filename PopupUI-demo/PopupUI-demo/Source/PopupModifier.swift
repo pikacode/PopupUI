@@ -9,27 +9,33 @@ import SwiftUI
 
 struct PopupModifier: ViewModifier {
     
-    @EnvironmentObject var status: PopupUI.Status
+    @EnvironmentObject var status: PopupUI.State
+    
+    var display: Bool { PopupUI.popups.count > 0 }
+    
+    var popup: PopupUI? { PopupUI.popups.last }
+    
+    var configuration: PopupConfiguration { popup?.popupView.configuration ?? .default }
     
     func body(content: Content) -> some View {
         ZStack {
-            if PopupUI.popups.count > 0 {
-                ForEach(PopupUI.popups, id: \.popupView.id) { popup in
-                    popup.popupView
-//                        .transition(.move(edge: popup.configuration.position == .top ? .top : .bottom))
-//                        .animation(popup.configuration.animation)
-//                        .zIndex(1)
-//
-//                    PopupView(content: popup.content, configuration: popup.configuration)
-//                        .transition(.move(edge: popup.configuration.position == .top ? .top : .bottom))
-//                        .animation(popup.configuration.animation)
-//                        .zIndex(1)
-                        .id(popup.id)
-                }
-            }
             
             content
+            
+            Group {
+                PopupView.sharedBackground
+                    .onTapGesture {
+                        popup?.hide()
+                    }
+                
+                ForEach(PopupUI.popups, id: \.id) {
+                    $0.popupView
+                }
+            }
+            .edgesIgnoringSafeArea(.all)
+
         }
     }
     
+   
 }

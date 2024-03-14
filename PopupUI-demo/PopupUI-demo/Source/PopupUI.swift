@@ -10,70 +10,94 @@ import SwiftUI
 extension View {
     public func popupUI() -> some View {
         self.modifier(PopupModifier())
-            .environmentObject(PopupUI.Status.shared)
+            .environmentObject(PopupUI.State.shared)
     }
 }
 
 class PopupUI: ObservableObject {
     
-    class Status: ObservableObject {
-        static let shared = Status()
+    class State: ObservableObject {
+        static let shared = State()
         @Published var id = UUID()
+        @Published var status: PopupView.Status = .prepare
     }
     
     static var popups: [PopupUI] = [] {
         didSet {
-            changeStatus()
+            statusChanged()
         }
     }
     
-    static func changeStatus() {
-        Status.shared.id = UUID()
+    static func statusChanged() {
+        State.shared.id = UUID()
     }
     
-    var popupView: PopupView
+    var popupView: PopupView!
     
     var id: PopupViewID {
         set { popupView.id = newValue }
         get { popupView.id }
     }
     
-    @Published var isPresented = false
+    @ObservedObject var state = State()
     
     @discardableResult
     static func show<PopupContent: View>(@ViewBuilder _ view: @escaping () -> PopupContent,
+                                         id: PopupViewID = PopupView.sharedId,
+                                         config: (PopupConfiguration) -> () = PopupConfiguration.sharedBlock) -> PopupUI {
+        return show(view(), id: id, config: config)
+    }
+    
+    @discardableResult
+    static func show<PopupContent: View>(_ view: PopupContent,
+                                         id: PopupViewID = PopupView.sharedId,
                                          config: (PopupConfiguration) -> () = PopupConfiguration.sharedBlock) -> PopupUI {
         
         let configuration = PopupConfiguration.default.copy()
+        configuration.id = id
         config(configuration)
         
-        let popupView = PopupView(content: AnyView(view()), configuration: configuration)
-        let popup = PopupUI(popupView: popupView)
+        let popup = PopupUI()
+        let popupView = PopupView(content: AnyView(view), status: popup.$state.status, configuration: configuration)
+        popup.popupView = popupView
         
-        popup.show()
         popups.append(popup)
+        popup.prepare()
         return popup
     }
     
-    static func hide(id: String = PopupView.sharedId) {
-        popups.first { $0.popupView.id == id }?.isPresented = false
-        popups.removeAll { $0.popupView.id == id }
+    var internalID: UUID { popupView.internalID }
+    
+    static func hide(_ id: PopupViewID = PopupView.sharedId) {
+        popups.forEach { popup in
+            if popup.id == id {
+                popup.hide()
+                DispatchQueue.main.after(popup.configuration.to.duration) {
+                    popups.removeAll { popup.internalID == $0.internalID }
+                }
+            }
+        }
     }
     
-    init(popupView: PopupView) {
-        self.popupView = popupView
+    static func hide(_ popup: PopupUI) {
+        hide(popup.id)
     }
     
-  
+//    init(popupView: PopupView) {
+//        self.popupView = popupView
+//    }
+    
+    func prepare() {
+        popupView.prepare()
+    }
     
     func show() {
-        isPresented = true
+        popupView.show()
     }
     
     func hide() {
-        isPresented = false
+        popupView.hide()
     }
-    
     
     
 }
@@ -120,14 +144,14 @@ extension PopupUI {
     }
     
     @discardableResult
-    func from(_ position: PopupPosition, _ animation: Animation = .default, _ duration: TimeInterval = 0.25) -> Self {
-        configuration.from = PopupAnimation(position, animation: animation, duration: duration)
+    func from(_ position: PopupPosition, _ animation: Animation = PopupAnimation.default.animation) -> Self {
+        configuration.from = PopupAnimation(position, animation: animation)
         return self
     }
     
     @discardableResult
-    func to(_ position: PopupPosition, _ animation: Animation = .default, _ duration: TimeInterval = 0.25) -> Self {
-        configuration.to = PopupAnimation(position, animation: animation, duration: duration)
+    func to(_ position: PopupPosition, _ animation: Animation = PopupAnimation.default.animation) -> Self {
+        configuration.to = PopupAnimation(position, animation: animation)
         return self
     }
     
@@ -143,4 +167,19 @@ extension PopupUI {
         return self
     }
     
+}
+
+
+extension DispatchQueue {
+    func after(_ delay: TimeInterval, execute: @escaping () -> Void) {
+        asyncAfter(deadline: .now() + delay, execute: execute)
+    }
+
+    static func mainSyncSafe(_ block: () -> Void) {
+        if Thread.isMainThread {
+            block()
+        } else {
+            DispatchQueue.main.sync(execute: block)
+        }
+    }
 }

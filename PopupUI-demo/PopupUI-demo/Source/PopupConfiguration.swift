@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum PopupPosition {
+enum PopupPosition: String, CaseIterable {
     case top
     case bottom
     case left
@@ -49,12 +49,7 @@ public class PopupConfiguration {
         
         return config
     }
-    
-    func id(_ v: PopupViewID) -> Self {
-        id = v
-        return self
-    }
-    
+
 }
 
 
