@@ -60,7 +60,8 @@ struct PopupView: View {
     }
     
     func hide() {
-        status = .hide
+//        status = .hide
+        PopupUI.hide(id)
     }
     
     var scale: CGFloat {

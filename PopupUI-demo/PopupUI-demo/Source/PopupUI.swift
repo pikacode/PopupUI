@@ -44,14 +44,14 @@ class PopupUI: ObservableObject {
     @discardableResult
     static func show<PopupContent: View>(@ViewBuilder _ view: @escaping () -> PopupContent,
                                          id: PopupViewID = PopupView.sharedId,
-                                         config: (PopupConfiguration) -> () = PopupConfiguration.sharedBlock) -> PopupUI {
+                                         config: (PopupConfiguration) -> () = PopupConfiguration.sharedBlock) -> PopupView {
         return show(view(), id: id, config: config)
     }
     
     @discardableResult
     static func show<PopupContent: View>(_ view: PopupContent,
                                          id: PopupViewID = PopupView.sharedId,
-                                         config: (PopupConfiguration) -> () = PopupConfiguration.sharedBlock) -> PopupUI {
+                                         config: (PopupConfiguration) -> () = PopupConfiguration.sharedBlock) -> PopupView {
         
         let configuration = PopupConfiguration.default.copy()
         configuration.id = id
@@ -62,8 +62,7 @@ class PopupUI: ObservableObject {
         popup.popupView = popupView
 
         popups.append(popup)
-//        popup.prepare()
-        return popup
+        return popupView
     }
     
     var internalID: UUID { popupView.internalID }
@@ -71,101 +70,16 @@ class PopupUI: ObservableObject {
     static func hide(_ id: PopupViewID = PopupView.sharedId) {
         popups.forEach { popup in
             if popup.id == id {
-                popup.hide()
-                DispatchQueue.main.after(popup.configuration.to.duration) {
+                popup.popupView.hide()
+                DispatchQueue.main.after(popup.popupView.configuration.to.duration) {
                     popups.removeAll { popup.internalID == $0.internalID }
                 }
             }
         }
     }
     
-    static func hide(_ popup: PopupUI) {
-        hide(popup.id)
-    }
-    
-//    init(popupView: PopupView) {
-//        self.popupView = popupView
-//    }
-    
-    func prepare() {
-        popupView.prepare()
-    }
-    
-    func show() {
-        popupView.show()
-    }
-    
     func hide() {
-//        state.status = .hide
-        popupView.hide()
-    }
-    
-    
-}
-
-// MARK: - Configuration
-extension PopupUI {
-    
-    var configuration: PopupConfiguration { popupView.configuration }
-    
-    @discardableResult
-    func id(_ v: PopupViewID) -> Self {
-        configuration.id = v
-        return self
-    }
-    
-    @discardableResult
-    func dismissWhenTapOutside(_ v: Bool) -> Self {
-        configuration.dismissWhenTapOutside = v
-        return self
-    }
-    
-    @discardableResult
-    func background<Background: View>(_ v: Background) -> Self {
-        configuration.background = AnyView(v)
-        return self
-    }
-    
-    @discardableResult
-    func backgroundClick(_ v: @escaping () -> ()) -> Self {
-        configuration.dismissCallback = { _ in v() }
-        return self
-    }
-    
-    @discardableResult
-    func avoidKeyboard(_ v: Bool) -> Self {
-        configuration.isAvoidKeyboard = v
-        return self
-    }
-    
-    @discardableResult
-    func stay(_ v: TimeInterval) -> Self {
-        configuration.stay = v
-        return self
-    }
-    
-    @discardableResult
-    func from(_ position: PopupPosition, _ animation: Animation = PopupAnimation.default.animation) -> Self {
-        configuration.from = PopupAnimation(position, animation: animation)
-        return self
-    }
-    
-    @discardableResult
-    func to(_ position: PopupPosition, _ animation: Animation = PopupAnimation.default.animation) -> Self {
-        configuration.to = PopupAnimation(position, animation: animation)
-        return self
-    }
-    
-    @discardableResult
-    func isOpaque(_ v: Bool) -> Self {
-        configuration.isOpaque = v
-        return self
-    }
-    
-    @discardableResult
-    func dismissCallback(_ v: @escaping (PopupViewID) -> ()) -> Self {
-        configuration.dismissCallback = v
-        return self
+        PopupUI.hide(id)
     }
     
 }
