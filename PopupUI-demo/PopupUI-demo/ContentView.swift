@@ -76,7 +76,7 @@ struct ContentView: View {
                         Image(systemName: "doc.on.doc")
                             .foregroundColor(.blue)
                             .onTapGesture {
-                                UIPasteboard.general.string = ""
+                                UIPasteboard.general.string = code
                                 PopupUI
                                     .show(Text("Copy success!").padding().background(Color.white))
                                     .stay(2)
@@ -84,17 +84,10 @@ struct ContentView: View {
                         Spacer()
                     }
                     
-                    Text("""
-                            PopupUI
-                                .show(AnyCustomView())
-                                .id("custom view 1")
-                                .from(from)
-                                .stay(2)
-                                .to(to)
-                            """)
+                    Text(code)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .foregroundColor(.white)
-                    .background(.black.opacity(0.8))
+                    .background(.black.opacity(0.7))
                 }
             } header: {
                 Text("Code Generation")
@@ -103,13 +96,24 @@ struct ContentView: View {
         }
     }
     
+    var code: String {
+                                    """
+                                    PopupUI
+                                        .show(AnyCustomView())
+                                        .from(.\(from.rawValue))
+                                        .stay(\(Int(stay)))
+                                        .to(.\(to.rawValue))
+                                        .background(.backgroundColor)
+                                        .padding(\(Int(padding * 10)))
+                                    """
+    }
 
     
 }
 
 extension View {
     
-    func buttonStyle() -> some View{
+    func buttonStyle() -> some View {
         self
             .frame(width: 88)
             .padding(.vertical, 4)
