@@ -119,7 +119,6 @@ extension PopupView {
     var screenHeight: CGFloat { UIScreen.main.bounds.height }
     var width: CGFloat { size.width }
     var height: CGFloat { size.height }
-    var padding: UIEdgeInsets { configuration.edgeInsets }
     
     var offset_prepare: CGSize {
         switch configuration.from.position {
@@ -137,17 +136,18 @@ extension PopupView {
     }
     
     var offset_show: CGSize {
+        let insets = configuration.edgeInsets
         switch configuration.from.position {
         case .center:
             return CGSize.zero
         case .top:
-            return CGSize(width: 0, height: -(screenHeight - height) / 2 + padding.top)
+            return CGSize(width: 0, height: -(screenHeight - height) / 2 + insets.top)
         case .bottom:
-            return CGSize(width: 0, height: (screenHeight - height) / 2 - padding.bottom)
+            return CGSize(width: 0, height: (screenHeight - height) / 2 - insets.bottom)
         case .left:
-            return CGSize(width: -(screenWith - width) / 2 + padding.left, height: 0)
+            return CGSize(width: -(screenWith - width) / 2 + insets.left, height: 0)
         case .right:
-            return CGSize(width: (screenWith - width) / 2 - padding.right, height: 0)
+            return CGSize(width: (screenWith - width) / 2 - insets.right, height: 0)
         }
     }
     

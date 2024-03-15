@@ -39,15 +39,21 @@ public class PopupConfiguration {
     
     var padding: CGFloat = 20
     
+    var isSafeArea: Bool = true
+    
     var edgeInsets: UIEdgeInsets {
-        let window = UIApplication.shared.connectedScenes
-            .filter { $0.activationState == .foregroundActive }
-            .compactMap { $0 as? UIWindowScene }
-            .first?.windows
-            .filter { $0.isKeyWindow }.first
-        let top = window?.safeAreaInsets.top ?? 0
-        let bottom = window?.safeAreaInsets.bottom ?? 0
-        return UIEdgeInsets(top: top + padding, left: padding, bottom: bottom + padding, right: padding)
+        if isSafeArea {
+            let window = UIApplication.shared.connectedScenes
+                .filter { $0.activationState == .foregroundActive }
+                .compactMap { $0 as? UIWindowScene }
+                .first?.windows
+                .filter { $0.isKeyWindow }.first
+            let top = window?.safeAreaInsets.top ?? 0
+            let bottom = window?.safeAreaInsets.bottom ?? 0
+            return UIEdgeInsets(top: top + padding, left: padding, bottom: bottom + padding, right: padding)
+        } else {
+            return UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
+        }
     }
         
     var dismissCallback: (PopupViewID) -> () = {_ in}
