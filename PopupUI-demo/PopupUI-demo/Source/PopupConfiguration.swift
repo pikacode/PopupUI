@@ -25,7 +25,7 @@ public class PopupConfiguration {
     
     var from = PopupAnimation()
     
-    var stay: TimeInterval = .infinity
+    var stay: TimeInterval?
     
     var to = PopupAnimation()
 
@@ -65,7 +65,12 @@ public class PopupConfiguration {
         config.from = from
         config.stay = stay
         config.to = to
-        
+        config.background = background
+        config.isOpaque = isOpaque
+        config.isAvoidKeyboard = isAvoidKeyboard
+        config.padding = padding
+        config.isSafeArea = isSafeArea
+        config.dismissCallback = dismissCallback
         return config
     }
 

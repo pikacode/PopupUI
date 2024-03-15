@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CustomPopupView: View {
+struct AnyCustomView: View {
 
     var body: some View {
         VStack {
@@ -22,5 +22,5 @@ struct CustomPopupView: View {
 }
 
 #Preview {
-    CustomPopupView()
+    AnyCustomView()
 }

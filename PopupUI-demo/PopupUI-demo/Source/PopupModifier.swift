@@ -10,13 +10,7 @@ import SwiftUI
 struct PopupModifier: ViewModifier {
     
     @EnvironmentObject var status: PopupUI.State
-    
-    var display: Bool { PopupUI.popups.count > 0 }
-    
-    var popup: PopupUI? { PopupUI.popups.last }
-    
-    var configuration: PopupConfiguration { popup?.popupView.configuration ?? .default }
-    
+            
     func body(content: Content) -> some View {
         ZStack {
             
@@ -26,7 +20,9 @@ struct PopupModifier: ViewModifier {
                 
                 PopupView.sharedBackground
                     .onTapGesture {
-                        popup?.hide()
+                        if let popup = PopupUI.popups.last {
+                            PopupUI.hide(popup.internalID)
+                        }
                     }
                 
                 ForEach(PopupUI.popups, id: \.id) {

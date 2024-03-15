@@ -35,7 +35,7 @@ struct PopupView: View {
         set { configuration.id = newValue }
     }
     
-    let internalID = UUID()
+    let internalID = UUID().description
 
     @State var size: CGSize = .zero
     
@@ -54,9 +54,7 @@ struct PopupView: View {
                 .background(
                     GeometryReader(content: { proxy in
                         Color.clear
-//                        size = proxy.size
                             .onAppear(perform: {
-                                
                                 size = proxy.size
                             })
                     })
@@ -65,7 +63,7 @@ struct PopupView: View {
                     show()
                 })
                 .onTapGesture {
-                    hide()
+                    PopupUI.hide(internalID)
                 }
         
     }
@@ -79,6 +77,11 @@ struct PopupView: View {
     
     func show() {
         status = .show
+        if let stayDuration = configuration.stay {
+            DispatchQueue.main.after(stayDuration) {
+                PopupUI.hide(internalID)
+            }
+        }
     }
     
     func hide() {
@@ -176,7 +179,7 @@ extension PopupView {
             return offset_hide
         }
     }
-        
+
     
 }
 

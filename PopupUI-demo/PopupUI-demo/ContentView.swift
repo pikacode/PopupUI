@@ -18,7 +18,7 @@ struct ContentView: View {
             // Simple
             Section {
                 Button("Show") {
-                    PopupUI.show(CustomPopupView())
+                    PopupUI.show(AnyCustomView())
                 }
                 Button("Hide") {
                     PopupUI.hide()
@@ -31,7 +31,7 @@ struct ContentView: View {
             Section {
                 Button("Show") {
                     PopupUI
-                        .show(CustomPopupView())
+                        .show(AnyCustomView())
                         .id("custom view 1")
                         .from(from)
                         .stay(2)
@@ -54,8 +54,57 @@ struct ContentView: View {
                     }
                 }
                 .frame(height: 20)
+                
+                
+                
+                /*
+                 config.dismissWhenTapOutside = dismissWhenTapOutside
+                 config.from = from
+                 config.stay = stay
+                 config.to = to
+                 config.background = background
+                 config.isOpaque = isOpaque
+                 config.isAvoidKeyboard = isAvoidKeyboard
+                 config.padding = padding
+                 config.isSafeArea = isSafeArea
+                 config.dismissCallback = dismissCallback
+                 
+                 */
+                
             } header: {
                 Text("Advanced")
+            }
+            
+            Section {
+                VStack {
+                    //a copy button
+                    HStack {
+                        Spacer()
+                        Image(systemName: "doc.on.doc")
+                            .font(.system(size: 20))
+                            .foregroundColor(.blue)
+                            .onTapGesture {
+                                UIPasteboard.general.string = ""
+                                PopupUI
+                                    .show(Text("Copy success!").background(Color.gray.opacity(0.5)))
+                                    .stay(2)
+                            }
+                    }
+                    
+                    Text("""
+                            PopupUI
+                                .show(AnyCustomView())
+                                .id("custom view 1")
+                                .from(from)
+                                .stay(2)
+                                .to(to)
+                            """)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .foregroundColor(.white)
+                    .background(.black)
+                }
+            } header: {
+                Text("Code")
             }
             
         }
