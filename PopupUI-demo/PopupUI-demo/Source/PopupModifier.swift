@@ -23,7 +23,7 @@ struct PopupModifier: ViewModifier {
             
             Group {
                 
-                PopupView.sharedBackground
+                PopupConfiguration.sharedBackground
                     .opacity(PopupUI.popups.count > 0 ? 1 : 0)
                     .animation(.easeIn(duration: backgroundDuration), value: UUID())
                     .onTapGesture {

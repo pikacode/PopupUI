@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum PopupPosition: String, CaseIterable {
+public enum PopupPosition: String, CaseIterable {
     case top
     case bottom
     case left
@@ -17,29 +17,33 @@ enum PopupPosition: String, CaseIterable {
 
 public class PopupConfiguration {
 
-    static let `default` = PopupConfiguration()
-    
-    static let sharedBlock: (PopupConfiguration) -> () = { _ in }
-    
-    var id = PopupView.sharedId
-    
-    var from = PopupAnimation()
-    
-    var stay: TimeInterval?
-    
-    var to = PopupAnimation()
-
-    var dismissWhenTapOutside = false
+    public static let `default` = PopupConfiguration()
         
-    var background: AnyView = AnyView(Color.clear)
+    public var id = PopupUI.sharedId
     
-    var isOpaque: Bool = false
+    public var from = PopupAnimation()
     
-    var isAvoidKeyboard = true
+    public var stay: TimeInterval?
     
-    var padding: CGFloat = 20
+    public var to = PopupAnimation()
+
+    public var dismissWhenTapOutside = false
+        
+    public var background: AnyView = AnyView(Color.clear)
     
-    var isSafeArea: Bool = true
+    static var sharedBackground: AnyView = AnyView(Color.clear) {
+        didSet {
+            PopupState.update()
+        }
+    }
+    
+    public var isOpaque: Bool = false
+    
+    public var isAvoidKeyboard = true
+    
+    public var padding: CGFloat = 20
+    
+    public var isSafeArea: Bool = true
     
     var edgeInsets: UIEdgeInsets {
         if isSafeArea {
@@ -56,7 +60,7 @@ public class PopupConfiguration {
         }
     }
         
-    var dismissCallback: (PopupViewID) -> () = {_ in}
+    public var dismissCallback: (PopupViewID) -> () = {_ in}
     
     func copy() -> PopupConfiguration {
         let config = PopupConfiguration()

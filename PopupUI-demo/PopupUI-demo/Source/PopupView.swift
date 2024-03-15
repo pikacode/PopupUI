@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-typealias PopupViewID = String
+public typealias PopupViewID = String
 
 enum PopupStatus {
     case prepare
@@ -17,14 +17,7 @@ enum PopupStatus {
 }
 
 struct PopupView: View {
-        
-    static var sharedId: PopupViewID = "PopupView.id.shared"
-    static var sharedBackground: AnyView = AnyView(Color.clear.opacity(0.4)) {
-        didSet {
-            PopupState.update()
-        }
-    }
-    
+            
     let content: any View
 //    @EnvironmentObject var state: PopupUI.State
     
@@ -68,7 +61,7 @@ struct PopupView: View {
                     return
                 }
                 withAnimation(.none) {
-                    PopupView.sharedBackground = configuration.background
+                    PopupConfiguration.sharedBackground = configuration.background
                 }
                 show()
             })

@@ -14,17 +14,9 @@ extension View {
     }
 }
 
-class PopupState: ObservableObject {
-    static let shared = PopupState()
-    @Published var id = UUID()
-    @Published var status: PopupStatus = .hide
+public class PopupUI: ObservableObject {
     
-    static func update() {
-        shared.id = UUID()
-    }
-}
-
-class PopupUI: ObservableObject {
+    public static var sharedId: PopupViewID = "PopupView.id.shared"
     
     static var popups: [PopupUI] = [] {
         didSet {
@@ -42,16 +34,16 @@ class PopupUI: ObservableObject {
     @ObservedObject var state = PopupState()
     
     @discardableResult
-    static func show<PopupContent: View>(@ViewBuilder _ view: @escaping () -> PopupContent,
-                                         id: PopupViewID = PopupView.sharedId,
-                                         config: (PopupConfiguration) -> () = PopupConfiguration.sharedBlock) -> PopupUI {
+    public static func show<PopupContent: View>(@ViewBuilder _ view: @escaping () -> PopupContent,
+                                                id: PopupViewID = sharedId,
+                                                config: (PopupConfiguration) -> () = { _ in }) -> PopupUI {
         return show(view(), id: id, config: config)
     }
     
     @discardableResult
-    static func show<PopupContent: View>(_ view: PopupContent,
-                                         id: PopupViewID = PopupView.sharedId,
-                                         config: (PopupConfiguration) -> () = PopupConfiguration.sharedBlock) -> PopupUI {
+    public static func show<PopupContent: View>(_ view: PopupContent,
+                                                id: PopupViewID = sharedId,
+                                                config: (PopupConfiguration) -> () = { _ in }) -> PopupUI {
         
         let configuration = PopupConfiguration.default.copy()
         configuration.id = id
@@ -67,8 +59,8 @@ class PopupUI: ObservableObject {
     
     var uniqueID: String { popupView.uniqueID }
     
-    static func hide(_ id: PopupViewID? = nil) {
-        let idd = id ?? popups.last?.id ?? PopupView.sharedId
+    public static func hide(_ id: PopupViewID? = nil) {
+        let idd = id ?? popups.last?.id ?? sharedId
         popups.forEach { popup in
             if popup.id == idd || popup.uniqueID == idd {
                 popup.popupView.shouldHide()
@@ -174,4 +166,14 @@ extension PopupUI {
         return self
     }
     
+}
+
+class PopupState: ObservableObject {
+    static let shared = PopupState()
+    @Published var id = UUID()
+    @Published var status: PopupStatus = .hide
+    
+    static func update() {
+        shared.id = UUID()
+    }
 }
