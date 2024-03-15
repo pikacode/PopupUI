@@ -15,7 +15,6 @@ struct AnyCustomView: View {
                 .padding()
                 .background(Color.black.opacity(0.1))
                 .cornerRadius(10)
-//                .shadow(radius: 2)
         }
     }
     
