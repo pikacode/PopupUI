@@ -78,7 +78,7 @@ struct ContentView: View {
                             .onTapGesture {
                                 UIPasteboard.general.string = ""
                                 PopupUI
-                                    .show(Text("Copy success!").padding().background(Color.gray.opacity(0.5)))
+                                    .show(Text("Copy success!").padding().background(Color.white))
                                     .stay(2)
                             }
                         Spacer()

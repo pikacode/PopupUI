@@ -39,7 +39,7 @@ struct PopupView: View {
         set { configuration.id = newValue }
     }
     
-    let internalID = UUID().description
+    let uniqueID = UUID().description
 
     @State var size: CGSize = .zero
     
@@ -63,7 +63,8 @@ struct PopupView: View {
                 })
             )
             .onAppear(perform: {
-                if PopupUI.popups.first(where: { $0.id == id && $0.uniqueID != internalID }) != nil {
+                if PopupUI.popups.first(where: { $0.id == id && $0.uniqueID != uniqueID }) != nil {
+                    PopupUI.popups.removeAll(where: { $0.uniqueID == uniqueID })
                     return
                 }
                 withAnimation(.none) {
@@ -84,7 +85,7 @@ struct PopupView: View {
         status = .show
         if let stayDuration = configuration.stay {
             DispatchQueue.main.after(configuration.from.duration + stayDuration) {
-                PopupUI.hide(internalID)
+                PopupUI.hide(uniqueID)
             }
         }
     }

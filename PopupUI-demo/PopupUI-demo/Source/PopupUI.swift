@@ -65,21 +65,17 @@ class PopupUI: ObservableObject {
         return popup
     }
     
-    var uniqueID: String { popupView.internalID }
+    var uniqueID: String { popupView.uniqueID }
     
     static func hide(_ id: PopupViewID? = nil) {
         let idd = id ?? popups.last?.id ?? PopupView.sharedId
         popups.forEach { popup in
             if popup.id == idd || popup.uniqueID == idd {
                 popup.popupView.shouldHide()
-                remove(popup)
+                DispatchQueue.main.after(popup.popupView.configuration.to.duration) {
+                    popups.removeAll { popup.uniqueID == $0.uniqueID }
+                }
             }
-        }
-    }
-    
-    static func remove(_ popup: PopupUI) {
-        DispatchQueue.main.after(popup.popupView.configuration.to.duration) {
-            popups.removeAll { popup.uniqueID == $0.uniqueID }
         }
     }
     

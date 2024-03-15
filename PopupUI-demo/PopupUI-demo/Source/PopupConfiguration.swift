@@ -31,7 +31,7 @@ public class PopupConfiguration {
 
     var dismissWhenTapOutside = false
         
-    var background: AnyView = AnyView(Color.black.opacity(0.2))
+    var background: AnyView = AnyView(Color.clear)
     
     var isOpaque: Bool = false
     

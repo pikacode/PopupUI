@@ -34,7 +34,6 @@ struct PopupModifier: ViewModifier {
                 
                 ForEach(PopupUI.popups, id: \.uniqueID) {
                     $0.popupView
-//                        .environmentObject($0.state)
                 }
             }
             .edgesIgnoringSafeArea(.all)
