@@ -29,7 +29,7 @@ public class PopupConfiguration {
     
     var to = PopupAnimation()
 
-    var dismissWhenTapOutside = true
+    var dismissWhenTapOutside = false
         
     var background: AnyView = AnyView(Color.black.opacity(0.2))
     

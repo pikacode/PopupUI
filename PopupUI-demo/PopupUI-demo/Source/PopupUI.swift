@@ -10,26 +10,26 @@ import SwiftUI
 extension View {
     public func popupUI() -> some View {
         self.modifier(PopupModifier())
-            .environmentObject(PopupUI.State.shared)
+            .environmentObject(PopupState.shared)
+    }
+}
+
+class PopupState: ObservableObject {
+    static let shared = PopupState()
+    @Published var id = UUID()
+    @Published var status: PopupStatus = .hide
+    
+    static func update() {
+        shared.id = UUID()
     }
 }
 
 class PopupUI: ObservableObject {
     
-    class State: ObservableObject {
-        static let shared = State()
-        @Published var id = UUID()
-        @Published var status: PopupStatus = .hide
-    }
-    
     static var popups: [PopupUI] = [] {
         didSet {
-            statusChanged()
+            PopupState.update()
         }
-    }
-    
-    static func statusChanged() {
-        State.shared.id = UUID()
     }
     
     var popupView: PopupView!
@@ -39,19 +39,19 @@ class PopupUI: ObservableObject {
         get { popupView.id }
     }
     
-    @ObservedObject var state = State()
+    @ObservedObject var state = PopupState()
     
     @discardableResult
     static func show<PopupContent: View>(@ViewBuilder _ view: @escaping () -> PopupContent,
                                          id: PopupViewID = PopupView.sharedId,
-                                         config: (PopupConfiguration) -> () = PopupConfiguration.sharedBlock) -> PopupView {
+                                         config: (PopupConfiguration) -> () = PopupConfiguration.sharedBlock) -> PopupUI {
         return show(view(), id: id, config: config)
     }
     
     @discardableResult
     static func show<PopupContent: View>(_ view: PopupContent,
                                          id: PopupViewID = PopupView.sharedId,
-                                         config: (PopupConfiguration) -> () = PopupConfiguration.sharedBlock) -> PopupView {
+                                         config: (PopupConfiguration) -> () = PopupConfiguration.sharedBlock) -> PopupUI {
         
         let configuration = PopupConfiguration.default.copy()
         configuration.id = id
@@ -62,15 +62,15 @@ class PopupUI: ObservableObject {
         popup.popupView = popupView
 
         popups.append(popup)
-        return popupView
+        return popup
     }
     
-    var internalID: String { popupView.internalID }
+    var uniqueID: String { popupView.internalID }
     
     static func hide(_ id: PopupViewID? = nil) {
         let idd = id ?? popups.last?.id ?? PopupView.sharedId
         popups.forEach { popup in
-            if popup.id == idd || popup.internalID == idd {
+            if popup.id == idd || popup.uniqueID == idd {
                 popup.popupView.shouldHide()
                 remove(popup)
             }
@@ -79,7 +79,7 @@ class PopupUI: ObservableObject {
     
     static func remove(_ popup: PopupUI) {
         DispatchQueue.main.after(popup.popupView.configuration.to.duration) {
-            popups.removeAll { popup.internalID == $0.internalID }
+            popups.removeAll { popup.uniqueID == $0.uniqueID }
         }
     }
     
@@ -100,3 +100,82 @@ extension DispatchQueue {
     }
 }
 
+
+// MARK: - Configuration
+extension PopupUI {
+    
+    var configuration: PopupConfiguration { popupView.configuration }
+    
+    @discardableResult
+    func id(_ v: PopupViewID) -> Self {
+        configuration.id = v
+        return self
+    }
+    
+    @discardableResult
+    func dismissWhenTapOutside(_ v: Bool) -> Self {
+        configuration.dismissWhenTapOutside = v
+        return self
+    }
+    
+    @discardableResult
+    func background<Background: View>(_ v: Background) -> Self {
+        configuration.background = AnyView(v)
+        return self
+    }
+    
+    @discardableResult
+    func backgroundClick(_ v: @escaping () -> ()) -> Self {
+        configuration.dismissCallback = { _ in v() }
+        return self
+    }
+    
+    @discardableResult
+    func avoidKeyboard(_ v: Bool) -> Self {
+        configuration.isAvoidKeyboard = v
+        return self
+    }
+    
+    @discardableResult
+    func stay(_ v: TimeInterval) -> Self {
+        configuration.stay = v
+        return self
+    }
+    
+    @discardableResult
+    func from(_ position: PopupPosition, _ animation: Animation = PopupAnimation.default.animation) -> Self {
+        configuration.from = PopupAnimation(position, animation: animation)
+        return self
+    }
+    
+    @discardableResult
+    func to(_ position: PopupPosition, _ animation: Animation = PopupAnimation.default.animation) -> Self {
+        configuration.to = PopupAnimation(position, animation: animation)
+        return self
+    }
+    
+    @discardableResult
+    func isOpaque(_ v: Bool) -> Self {
+        configuration.isOpaque = v
+        return self
+    }
+    
+    @discardableResult
+    func dismissCallback(_ v: @escaping (PopupViewID) -> ()) -> Self {
+        configuration.dismissCallback = v
+        return self
+    }
+    
+    @discardableResult
+    func padding(_ v: CGFloat) -> Self {
+        configuration.padding = v
+        return self
+    }
+    
+    @discardableResult
+    func isSafeArea(_ v: Bool) -> Self {
+        configuration.isSafeArea = v
+        return self
+    }
+    
+}

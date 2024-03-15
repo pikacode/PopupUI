@@ -12,6 +12,10 @@ struct ContentView: View {
     @State var from: PopupPosition = .center
     @State var to: PopupPosition = .bottom
     
+    @State var backgroundColor: Color = .black.opacity(0.3)
+    @State var stay: TimeInterval = 2
+    @State var padding: CGFloat = 0
+    
     var body: some View {
         List {
             
@@ -19,58 +23,46 @@ struct ContentView: View {
                 
                 HStack {
                     Text("Show")
+                        .buttonStyle()
                         .onTapGesture {
                             PopupUI
                                 .show(AnyCustomView())
                                 .from(from)
-                                .stay(2)
+                                .stay(stay)
                                 .to(to)
+                                .background(backgroundColor)
+                                .padding(padding)
                         }
-                        .buttonStyle()
                     
                     Text("Hide")
+                        .buttonStyle()
                         .onTapGesture {
                             PopupUI.hide()
                         }
-                        .buttonStyle()
                 }
                 .frame(height: 44)
                 
                 Group {
                     
-                    Picker("from", selection: $from) {
+                    Picker("Brom", selection: $from) {
                         ForEach(PopupPosition.allCases, id: \.self) {
-                            Text($0.rawValue)
+                            Text($0.rawValue.capitalized)
                                 .id($0)
                         }
                     }
                                         
-                    Picker("to", selection: $to) {
+                    Picker("To", selection: $to) {
                         ForEach(PopupPosition.allCases, id: \.self) {
-                            Text($0.rawValue)
+                            Text($0.rawValue.capitalized)
                                 .id($0)
                         }
                     }
                     
-                    ColorPicker("background", selection: .constant(.black))
+                    ColorPicker("Background", selection: $backgroundColor)
 
-                    Stepper("stay", value: .constant(20), in: 0...100)
+                    Stepper("Stay:          \(Int(stay))", value: $stay, in: 0...100)
                     
-                    Stepper("padding", value: .constant(20), in: 0...100)
-                    
-//                    Toggle("isSafeArea", isOn: .constant(true))
-//                    
-//                    Toggle("isOpaque", isOn: .constant(true))
-//                    
-//                    Toggle("isAvoidKeyboard", isOn: .constant(true))
-//                 
-//                    Toggle("dismissWhenTapOutside", isOn: .constant(true))
-//                    
-//                    TextField("dismissCallback", text: .constant("dismissCallback print text"))
-//                        .frame(height: 30)
-//                        .padding(.horizontal)
-//                        .background(.gray.opacity(0.2))
-//                        .cornerRadius(4)
+                    Stepper("Padding:   \(Int(padding))", value: $padding, in: 0...100)
                 }
                 .frame(height: 20)
                 
@@ -80,11 +72,8 @@ struct ContentView: View {
             
             Section {
                 VStack {
-                    //a copy button
                     HStack {
-                        
                         Image(systemName: "doc.on.doc")
-//                            .font(.system(size: 15))
                             .foregroundColor(.blue)
                             .onTapGesture {
                                 UIPasteboard.general.string = ""
@@ -105,10 +94,10 @@ struct ContentView: View {
                             """)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .foregroundColor(.white)
-                    .background(.black)
+                    .background(.black.opacity(0.8))
                 }
             } header: {
-                Text("Code")
+                Text("Code Generation")
             }
             
         }

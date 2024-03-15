@@ -19,7 +19,11 @@ enum PopupStatus {
 struct PopupView: View {
         
     static var sharedId: PopupViewID = "PopupView.id.shared"
-    static var sharedBackground: AnyView = AnyView(Color.clear.opacity(0.4))
+    static var sharedBackground: AnyView = AnyView(Color.clear.opacity(0.4)) {
+        didSet {
+            PopupState.update()
+        }
+    }
     
     let content: any View
 //    @EnvironmentObject var state: PopupUI.State
@@ -40,37 +44,31 @@ struct PopupView: View {
     @State var size: CGSize = .zero
     
     var body: some View {
-        
-            AnyView(content)
-                .scaleEffect(scale)
-                .opacity(status == .show ? 1 : 0)
-                .animation(status == .show ? configuration.from.animation : configuration.to.animation, value: UUID())
-                .offset(offset)
-                .onReceive(shoudHideSubject, perform: { o in
-                    if shoudHideSubject.value {
-                        hide()
-                    }
-                })
-                .background(
-                    GeometryReader(content: { proxy in
-                        Color.clear
-                            .onAppear(perform: {
-                                size = proxy.size
-                            })
-                    })
-                )
-                .onAppear(perform: {
-                    PopupUI.popups.forEach { popup in
-                        if popup.id == id, popup.internalID != internalID {
-                            PopupUI.hide(popup.internalID)
-                        }
-                    }
-                    show()
-                })
-                .onTapGesture {
-                    PopupUI.hide(internalID)
+        AnyView(content)
+            .scaleEffect(scale)
+            .opacity(status == .show ? 1 : 0)
+            .animation(status == .show ? configuration.from.animation : configuration.to.animation, value: UUID())
+            .offset(offset)
+            .onReceive(shoudHideSubject, perform: { o in
+                if shoudHideSubject.value {
+                    hide()
                 }
-        
+            })
+            .background(
+                GeometryReader(content: { proxy in
+                    Color.clear
+                        .onAppear(perform: {
+                            size = proxy.size
+                        })
+                })
+            )
+            .onAppear(perform: {
+                if PopupUI.popups.first(where: { $0.id == id && $0.uniqueID != internalID }) != nil {
+                    return
+                }
+                PopupView.sharedBackground = configuration.background
+                show()
+            })
     }
     
     func prepare() {
@@ -185,70 +183,5 @@ extension PopupView {
         }
     }
 
-    
-}
-
-// MARK: - Configuration
-extension PopupView {
-    
-    @discardableResult
-    func id(_ v: PopupViewID) -> Self {
-        configuration.id = v
-        return self
-    }
-    
-    @discardableResult
-    func dismissWhenTapOutside(_ v: Bool) -> Self {
-        configuration.dismissWhenTapOutside = v
-        return self
-    }
-    
-    @discardableResult
-    func background<Background: View>(_ v: Background) -> Self {
-        configuration.background = AnyView(v)
-        return self
-    }
-    
-    @discardableResult
-    func backgroundClick(_ v: @escaping () -> ()) -> Self {
-        configuration.dismissCallback = { _ in v() }
-        return self
-    }
-    
-    @discardableResult
-    func avoidKeyboard(_ v: Bool) -> Self {
-        configuration.isAvoidKeyboard = v
-        return self
-    }
-    
-    @discardableResult
-    func stay(_ v: TimeInterval) -> Self {
-        configuration.stay = v
-        return self
-    }
-    
-    @discardableResult
-    func from(_ position: PopupPosition, _ animation: Animation = PopupAnimation.default.animation) -> Self {
-        configuration.from = PopupAnimation(position, animation: animation)
-        return self
-    }
-    
-    @discardableResult
-    func to(_ position: PopupPosition, _ animation: Animation = PopupAnimation.default.animation) -> Self {
-        configuration.to = PopupAnimation(position, animation: animation)
-        return self
-    }
-    
-    @discardableResult
-    func isOpaque(_ v: Bool) -> Self {
-        configuration.isOpaque = v
-        return self
-    }
-    
-    @discardableResult
-    func dismissCallback(_ v: @escaping (PopupViewID) -> ()) -> Self {
-        configuration.dismissCallback = v
-        return self
-    }
     
 }
