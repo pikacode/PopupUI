@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PopupUI
 
 @main
 struct PopupUI_demoApp: App {

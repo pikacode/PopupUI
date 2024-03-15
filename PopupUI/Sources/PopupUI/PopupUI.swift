@@ -95,73 +95,73 @@ extension PopupUI {
     var configuration: PopupConfiguration { popupView.configuration }
     
     @discardableResult
-    func id(_ v: PopupViewID) -> Self {
+    public func id(_ v: PopupViewID) -> Self {
         configuration.id = v
         return self
     }
     
     @discardableResult
-    func dismissWhenTapOutside(_ v: Bool) -> Self {
+    public func dismissWhenTapOutside(_ v: Bool) -> Self {
         configuration.dismissWhenTapOutside = v
         return self
     }
     
     @discardableResult
-    func background<Background: View>(_ v: Background) -> Self {
+    public func background<Background: View>(_ v: Background) -> Self {
         configuration.background = AnyView(v)
         return self
     }
     
     @discardableResult
-    func backgroundClick(_ v: @escaping () -> ()) -> Self {
+    public func backgroundClick(_ v: @escaping () -> ()) -> Self {
         configuration.dismissCallback = { _ in v() }
         return self
     }
     
     @discardableResult
-    func avoidKeyboard(_ v: Bool) -> Self {
+    public func avoidKeyboard(_ v: Bool) -> Self {
         configuration.isAvoidKeyboard = v
         return self
     }
     
     @discardableResult
-    func stay(_ v: TimeInterval) -> Self {
+    public func stay(_ v: TimeInterval) -> Self {
         configuration.stay = v
         return self
     }
     
     @discardableResult
-    func from(_ position: PopupPosition, _ animation: Animation = PopupAnimation.default.animation) -> Self {
+    public func from(_ position: PopupPosition, _ animation: Animation = PopupAnimation.default.animation) -> Self {
         configuration.from = PopupAnimation(position, animation: animation)
         return self
     }
     
     @discardableResult
-    func to(_ position: PopupPosition, _ animation: Animation = PopupAnimation.default.animation) -> Self {
+    public func to(_ position: PopupPosition, _ animation: Animation = PopupAnimation.default.animation) -> Self {
         configuration.to = PopupAnimation(position, animation: animation)
         return self
     }
     
     @discardableResult
-    func isOpaque(_ v: Bool) -> Self {
+    public func isOpaque(_ v: Bool) -> Self {
         configuration.isOpaque = v
         return self
     }
     
     @discardableResult
-    func dismissCallback(_ v: @escaping (PopupViewID) -> ()) -> Self {
+    public func dismissCallback(_ v: @escaping (PopupViewID) -> ()) -> Self {
         configuration.dismissCallback = v
         return self
     }
     
     @discardableResult
-    func padding(_ v: CGFloat) -> Self {
+    public func padding(_ v: CGFloat) -> Self {
         configuration.padding = v
         return self
     }
     
     @discardableResult
-    func isSafeArea(_ v: Bool) -> Self {
+    public func isSafeArea(_ v: Bool) -> Self {
         configuration.isSafeArea = v
         return self
     }
