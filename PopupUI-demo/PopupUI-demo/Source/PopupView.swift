@@ -66,7 +66,9 @@ struct PopupView: View {
                 if PopupUI.popups.first(where: { $0.id == id && $0.uniqueID != internalID }) != nil {
                     return
                 }
-                PopupView.sharedBackground = configuration.background
+                withAnimation(.none) {
+                    PopupView.sharedBackground = configuration.background
+                }
                 show()
             })
     }
@@ -81,7 +83,7 @@ struct PopupView: View {
     func show() {
         status = .show
         if let stayDuration = configuration.stay {
-            DispatchQueue.main.after(stayDuration) {
+            DispatchQueue.main.after(configuration.from.duration + stayDuration) {
                 PopupUI.hide(internalID)
             }
         }
