@@ -1,0 +1,13 @@
+
+platform :ios,'13.0'
+use_frameworks!
+
+def common_lib
+    pod 'PopupUI', :path => '../PopupUI'
+    
+end
+
+target 'CoinBest' do
+    common_lib
+end
+
