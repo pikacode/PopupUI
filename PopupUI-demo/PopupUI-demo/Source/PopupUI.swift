@@ -70,7 +70,7 @@ class PopupUI: ObservableObject {
     static func hide(_ id: PopupViewID = PopupView.sharedId) {
         popups.forEach { popup in
             if popup.id == id {
-                popup.popupView.hide()
+                popup.popupView.shouldHide()
                 DispatchQueue.main.after(popup.popupView.configuration.to.duration) {
                     popups.removeAll { popup.internalID == $0.internalID }
                 }

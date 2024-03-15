@@ -13,7 +13,7 @@ struct CustomPopupView: View {
         VStack {
             Text("Hello, PopupUI!")
                 .padding()
-                .background(Color.white)
+                .background(Color.black.opacity(0.05))
                 .cornerRadius(10)
 //                .shadow(radius: 2)
         }

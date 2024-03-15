@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 typealias PopupViewID = String
 
@@ -27,6 +28,8 @@ struct PopupView: View {
     
     let configuration: PopupConfiguration
     
+    private let shoudHideSubject = CurrentValueSubject<Bool, Never>(false)
+    
     var id: String {
         get { configuration.id }
         set { configuration.id = newValue }
@@ -34,18 +37,37 @@ struct PopupView: View {
     
     let internalID = UUID()
 
+    @State var size: CGSize = .zero
     
     var body: some View {
-        AnyView(content)
-            .scaleEffect(scale)
-            .opacity(status == .show ? 1 : 0)
-            .animation(status == .show ? configuration.from.animation : configuration.to.animation, value: UUID())
-            .onAppear(perform: {
-                show()
-            })
-            .onTapGesture {
-                hide()
-            }
+        
+            AnyView(content)
+                .scaleEffect(scale)
+                .opacity(status == .show ? 1 : 0)
+                .animation(status == .show ? configuration.from.animation : configuration.to.animation, value: UUID())
+                .offset(offset)
+                .onReceive(shoudHideSubject, perform: { o in
+                    if shoudHideSubject.value {
+                        hide()
+                    }
+                })
+                .background(
+                    GeometryReader(content: { proxy in
+                        Color.clear
+//                        size = proxy.size
+                            .onAppear(perform: {
+                                
+                                size = proxy.size
+                            })
+                    })
+                )
+                .onAppear(perform: {
+                    show()
+                })
+                .onTapGesture {
+                    hide()
+                }
+        
     }
     
     func prepare() {
@@ -60,9 +82,19 @@ struct PopupView: View {
     }
     
     func hide() {
-//        status = .hide
-        PopupUI.hide(id)
+        status = .hide
     }
+    
+    func shouldHide() {
+        shoudHideSubject.send(true)
+    }
+    
+   
+    
+}
+
+// MARK: - Animation
+extension PopupView {
     
     var scale: CGFloat {
         switch status {
@@ -83,8 +115,70 @@ struct PopupView: View {
         }
     }
     
+    var screenWith: CGFloat { UIScreen.main.bounds.width }
+    var screenHeight: CGFloat { UIScreen.main.bounds.height }
+    var width: CGFloat { size.width }
+    var height: CGFloat { size.height }
+    var padding: UIEdgeInsets { configuration.edgeInsets }
+    
+    var offset_prepare: CGSize {
+        switch configuration.from.position {
+        case .center:
+            return CGSize.zero
+        case .top:
+            return CGSize(width: 0, height: -(screenHeight + height) / 2)
+        case .bottom:
+            return CGSize(width: 0, height: (screenHeight + height) / 2)
+        case .left:
+            return CGSize(width: -(screenWith + width) / 2, height: 0)
+        case .right:
+            return CGSize(width: (screenWith + width) / 2, height: 0)
+        }
+    }
+    
+    var offset_show: CGSize {
+        switch configuration.from.position {
+        case .center:
+            return CGSize.zero
+        case .top:
+            return CGSize(width: 0, height: -(screenHeight - height) / 2 + padding.top)
+        case .bottom:
+            return CGSize(width: 0, height: (screenHeight - height) / 2 - padding.bottom)
+        case .left:
+            return CGSize(width: -(screenWith - width) / 2 + padding.left, height: 0)
+        case .right:
+            return CGSize(width: (screenWith - width) / 2 - padding.right, height: 0)
+        }
+    }
+    
+    var offset_hide: CGSize {
+        switch configuration.to.position {
+        case .center:
+            return offset_show
+        case .top:
+            return CGSize(width: offset_show.width, height: -(screenHeight + height) / 2)
+        case .bottom:
+            return CGSize(width: offset_show.width, height: (screenHeight + height) / 2)
+        case .left:
+            return CGSize(width: -(screenWith + width) / 2, height: offset_show.height)
+        case .right:
+            return CGSize(width: (screenWith + width) / 2, height: offset_show.height)
+        }
+    }
+    
+    var offset: CGSize {
+        switch status {
+        case .prepare:
+            return offset_prepare
+        case .show:
+            return offset_show
+        case .hide:
+            return offset_hide
+        }
+    }
+        
+    
 }
-
 
 // MARK: - Configuration
 extension PopupView {
