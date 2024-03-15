@@ -61,7 +61,7 @@ struct PopupView: View {
                 )
                 .onAppear(perform: {
                     PopupUI.popups.forEach { popup in
-                        if popup.internalID != internalID {
+                        if popup.id == id, popup.internalID != internalID {
                             PopupUI.hide(popup.internalID)
                         }
                     }

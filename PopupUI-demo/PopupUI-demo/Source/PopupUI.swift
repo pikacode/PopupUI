@@ -67,9 +67,10 @@ class PopupUI: ObservableObject {
     
     var internalID: String { popupView.internalID }
     
-    static func hide(_ id: PopupViewID = PopupView.sharedId) {
+    static func hide(_ id: PopupViewID? = nil) {
+        let idd = id ?? popups.last?.id ?? PopupView.sharedId
         popups.forEach { popup in
-            if popup.id == id || popup.internalID == id {
+            if popup.id == idd || popup.internalID == idd {
                 popup.popupView.shouldHide()
                 remove(popup)
             }

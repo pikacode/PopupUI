@@ -18,30 +18,21 @@ struct ContentView: View {
             Section {
                 
                 HStack {
-                    Button("Show") {
-                        PopupUI
-                            .show(AnyCustomView())
-                            .id("custom view 1")
-                            .from(from)
-                            .stay(2)
-                            .to(to)
-                    }
-                    .padding(.horizontal)
-                    .padding(.vertical, 4)
-                    .foregroundColor(.white)
-                    .background(.blue)
-                    .cornerRadius(10)
+                    Text("Show")
+                        .onTapGesture {
+                            PopupUI
+                                .show(AnyCustomView())
+                                .from(from)
+                                .stay(2)
+                                .to(to)
+                        }
+                        .buttonStyle()
                     
-//                    Spacer()
-                    
-                    Button("Hide") {
-                        PopupUI.hide("custom view 1")
-                    }
-                    .padding(.horizontal)
-                    .padding(.vertical, 4)
-                    .foregroundColor(.white)
-                    .background(.blue)
-                    .cornerRadius(10)
+                    Text("Hide")
+                        .onTapGesture {
+                            PopupUI.hide()
+                        }
+                        .buttonStyle()
                 }
                 .frame(height: 44)
                 
@@ -122,6 +113,22 @@ struct ContentView: View {
             
         }
     }
+    
+
+    
+}
+
+extension View {
+    
+    func buttonStyle() -> some View{
+        self
+            .frame(width: 88)
+            .padding(.vertical, 4)
+            .foregroundColor(.white)
+            .background(.blue)
+            .cornerRadius(10)
+    }
+    
 }
 
 #Preview {
