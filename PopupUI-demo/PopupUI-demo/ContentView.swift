@@ -34,7 +34,7 @@ struct ContentView: View {
                         .show(AnyCustomView())
                         .id("custom view 1")
                         .from(from)
-                        .stay(2)
+//                        .stay(2)
                         .to(to)
                 }
                 Button("Hide") {

@@ -25,7 +25,7 @@ struct PopupModifier: ViewModifier {
                         }
                     }
                 
-                ForEach(PopupUI.popups, id: \.id) {
+                ForEach(PopupUI.popups, id: \.internalID) {
                     $0.popupView
                         .environmentObject($0.state)
                 }
