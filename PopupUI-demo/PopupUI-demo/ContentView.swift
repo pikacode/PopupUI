@@ -13,7 +13,7 @@ struct ContentView: View {
     @State var to: PopupPosition = .bottom
     
     @State var backgroundColor: Color = .black.opacity(0.5)
-    @State var stay: TimeInterval = 1
+    @State var stay: TimeInterval = 2
     @State var padding: CGFloat = 0
     
     var body: some View {
@@ -28,10 +28,10 @@ struct ContentView: View {
                             PopupUI
                                 .show(AnyCustomView())
                                 .from(from)
-                                .stay(stay * 0.5)
+                                .stay(stay)
                                 .to(to)
                                 .background(backgroundColor)
-                                .padding(padding * 8)
+                                .padding(padding * 10)
                         }
                     
                     Text("Hide")
@@ -60,9 +60,9 @@ struct ContentView: View {
                     
                     ColorPicker("Background", selection: $backgroundColor)
 
-                    Stepper("Stay:      \(String(format: "%.1f", stay * 0.5))", value: $stay, in: 0...100)
+                    Stepper("Stay:      \(Int(stay))", value: $stay, in: 0...100)
 
-                    Stepper("Padding:       \(Int(padding * 8))", value: $padding, in: 0...50)
+                    Stepper("Padding:       \(Int(padding * 10))", value: $padding, in: 0...50)
                 }
                 .frame(height: 20)
                 
