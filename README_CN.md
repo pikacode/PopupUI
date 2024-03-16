@@ -47,7 +47,7 @@ var body: some View {
     .popupUI()  // <-- 添加到视图
 }
 ```
-**或者**添加到根视图，仅添加一次即可在整个应用程序中弹出弹窗：
+**或者**添加到根视图，仅添加一次即可在整个应用程序中弹窗：
 ```swift
 @main
 struct PopupUI_demoApp: App {
