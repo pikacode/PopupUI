@@ -87,7 +87,7 @@ PopupUI
     .isAvoidKeyboard(true)                  // <-- 是否避开键盘
     .isOpaque(true)                         // <-- 是否可以透过弹窗的背景点击后面的视图
     .dismissWhenTapBackground(true)         // <-- 点击背景 是否隐藏
-    .dismissCallback { id in                
+    .dismissCallback { id in                // <-- 隐藏时的回调
         print("Popup dismissed: \(id)")
     }
 ```
