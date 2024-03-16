@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2644805B2BA6352E0089B2A4 /* PopupUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2644805A2BA6352E0089B2A4 /* PopupUI */; };
 		26F3C6D92BA5EBAC0045F66C /* PopupUI in Frameworks */ = {isa = PBXBuildFile; productRef = 26F3C6D82BA5EBAC0045F66C /* PopupUI */; };
 		66EDA78E2BA18B320001DE4C /* PopupUI_demoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EDA78D2BA18B320001DE4C /* PopupUI_demoApp.swift */; };
 		66EDA7902BA18B320001DE4C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EDA78F2BA18B320001DE4C /* ContentView.swift */; };
@@ -22,7 +23,6 @@
 		66EDA7912BA18B330001DE4C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		66EDA7942BA18B330001DE4C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		66EDA7A82BA29F6A0001DE4C /* AnyCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyCustomView.swift; sourceTree = "<group>"; };
-		66EDA7AA2BA449260001DE4C /* PopupUI */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PopupUI; path = ../../PopupUI; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +31,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				26F3C6D92BA5EBAC0045F66C /* PopupUI in Frameworks */,
+				2644805B2BA6352E0089B2A4 /* PopupUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,11 +58,9 @@
 		66EDA78C2BA18B320001DE4C /* PopupUI-demo */ = {
 			isa = PBXGroup;
 			children = (
-				66EDA7AA2BA449260001DE4C /* PopupUI */,
 				66EDA78D2BA18B320001DE4C /* PopupUI_demoApp.swift */,
 				66EDA78F2BA18B320001DE4C /* ContentView.swift */,
 				66EDA7A82BA29F6A0001DE4C /* AnyCustomView.swift */,
-				66EDA7A12BA1941A0001DE4C /* Source */,
 				66EDA7912BA18B330001DE4C /* Assets.xcassets */,
 				66EDA7932BA18B330001DE4C /* Preview Content */,
 			);
@@ -74,13 +73,6 @@
 				66EDA7942BA18B330001DE4C /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		66EDA7A12BA1941A0001DE4C /* Source */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Source;
 			sourceTree = "<group>";
 		};
 		66EDA7AB2BA449540001DE4C /* Frameworks */ = {
@@ -108,6 +100,7 @@
 			name = "PopupUI-demo";
 			packageProductDependencies = (
 				26F3C6D82BA5EBAC0045F66C /* PopupUI */,
+				2644805A2BA6352E0089B2A4 /* PopupUI */,
 			);
 			productName = "PopupUI-demo";
 			productReference = 66EDA78A2BA18B320001DE4C /* PopupUI-demo.app */;
@@ -137,6 +130,9 @@
 				Base,
 			);
 			mainGroup = 66EDA7812BA18B320001DE4C;
+			packageReferences = (
+				264480592BA6352E0089B2A4 /* XCLocalSwiftPackageReference ".." */,
+			);
 			productRefGroup = 66EDA78B2BA18B320001DE4C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -374,7 +370,18 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		264480592BA6352E0089B2A4 /* XCLocalSwiftPackageReference ".." */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ..;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		2644805A2BA6352E0089B2A4 /* PopupUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PopupUI;
+		};
 		26F3C6D82BA5EBAC0045F66C /* PopupUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = PopupUI;
