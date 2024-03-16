@@ -11,7 +11,7 @@ SwiftUI で作られた PopupView は、簡単で使いやすいです！
 
 ## インストール
 
-#### Swift Package Manager
+### Swift Package Manager
 
 ```swift
 dependencies: [
@@ -20,7 +20,7 @@ dependencies: [
 ```
 
 
-#### Cocoapods
+### Cocoapods
 
 ```ruby
 pod 'PopupUI'
@@ -28,14 +28,14 @@ pod 'PopupUI'
 
   
 
-## 使い方
+## 使用方法
 ```swift
 import PopupUI
 ```
 
-#### 基本的な使い方
+### 基本的な使い方
 
-##### 1.追加
+#### 1.追加
 View の後に `.popupUI()` を加えて、そのスコープ内でポップアップします：
 ```swift
 var body: some View {
@@ -45,7 +45,7 @@ var body: some View {
     .popupUI()  // <-- 加える
 }
 ```
-または、ルートビューに加えて、一度だけ追加すると、アプリ全体でポップアップします：
+**または**、ルートビューに加えて、一度だけ追加すると、アプリ全体でポップアップします：
 ```swift
 @main
 struct PopupUI_demoApp: App {
@@ -58,14 +58,14 @@ struct PopupUI_demoApp: App {
 }
 ```
 
-##### 2.表示
+#### 2.表示
 ```swift
 PopupUI
     .show(Text("Hello, PopupUI!"))
 ```
 
 
-##### 3.非表示
+#### 3.非表示
 ```swift
 PopupUI
     .hide()     // <-- 最後に表示されたポップアップを非表示　 
@@ -73,14 +73,15 @@ PopupUI
 
 
 ​    
-#### カスタマイズ
+### 高級な使い方
+#### カスタムパラメータを設定する
 さまざまなパラメータを設定して、表示する：
 ```swift
 PopupUI
     .show(YourCustomView())                 // <-- 表示するビュー
     .from(.bottom)                          // <-- 表示する方向
     .stay(2)                                // <-- 表示する時間
-    .to(.center, .easeOut(duration: 0.3))   // <-- 表示する位置
+    .to(.center, .easeOut(duration: 0.3))   // <-- 表示する位置、アニメーション
     .background(Color.black.opacity(0.3))   // <-- 背景の色
     .padding(24)                            // <-- ビューの余白
     .isSafeArea(true)                       // <-- セーフエリアを考慮する
@@ -121,4 +122,12 @@ configuration.stay = 2
 configuration.to = .center
 ...
 PopupConfiguration.default = configuration
+```
+または：
+```swift
+PopupConfiguration
+    .default
+    .stay(2)
+    .to(.center)
+    ...
 ```

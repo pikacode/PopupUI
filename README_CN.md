@@ -10,7 +10,7 @@ SwiftUI で作られた PopupView は、簡単で使いやすいです！[『日
 
 ## 安装
 
-#### Swift Package Manager
+### Swift Package Manager
 
 ```swift
 dependencies: [
@@ -19,7 +19,7 @@ dependencies: [
 ```
 
 
-#### Cocoapods
+### Cocoapods
 
 ```ruby
 pod 'PopupUI'
@@ -32,9 +32,9 @@ pod 'PopupUI'
 import PopupUI
 ```
 
-#### 基本用法
+### 基本用法
 
-##### 1.添加
+#### 1.添加
 在视图后添加 `.popupUI()` 以在该视图范围内弹窗：
 ```swift
 var body: some View {
@@ -44,7 +44,7 @@ var body: some View {
     .popupUI()  // <-- 添加到视图
 }
 ```
-或者添加到根视图，仅添加一次即可在整个应用程序中弹出弹窗：
+**或者**添加到根视图，仅添加一次即可在整个应用程序中弹出弹窗：
 ```swift
 @main
 struct PopupUI_demoApp: App {
@@ -57,14 +57,14 @@ struct PopupUI_demoApp: App {
 }
 ```
 
-##### 2.展示
+#### 2.展示
 ```swift
 PopupUI
     .show(Text("Hello, PopupUI!"))
 ```
 
 
-##### 3.隐藏
+#### 3.隐藏
 ```swift
 PopupUI
     .hide()     // <-- 隐藏最后一个弹窗
@@ -72,15 +72,14 @@ PopupUI
 
 
 ​    
-#### 自定义
-自定义各种参数：
-
+### 进阶用法
+#### 自定义参数
 ```swift
 PopupUI
     .show(YourCustomView())                 // <-- 自定义视图
     .from(.bottom)                          // <-- 显示的方向
     .stay(2)                                // <-- 显示时间
-    .to(.center, .easeOut(duration: 0.3))   // <-- 隐藏的方向
+    .to(.center, .easeOut(duration: 0.3))   // <-- 隐藏的方向并指定动画与时间
     .background(Color.black.opacity(0.3))   // <-- 背景
     .padding(24)                            // <-- 从各方向弹出时增加的偏移量
     .isSafeArea(true)                       // <-- 是否在安全区域内
@@ -113,7 +112,7 @@ PopupUI
 
   
 
-#### 全局设置默认参数 
+### 全局设置默认参数 
 通过设置 `PopupConfiguration.default` 以对自定义参数进行全局统一配置，简化弹出代码：
 
 ```swift
@@ -122,4 +121,12 @@ configuration.stay = 2
 configuration.to = .center
 ...
 PopupConfiguration.default = configuration
+```
+或者：
+```swift
+PopupConfiguration
+    .default
+    .stay(2)
+    .to(.center)
+    ...
 ```

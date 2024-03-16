@@ -3,7 +3,7 @@ Easy to pop up any view written with SwiftUI！
 
 SwiftUI 实现的弹窗控件，简单易用！[《中文文档》](README_CN.md)
 
-SwiftUI で作られた PopupView は、簡単で使いやすいです！[『日本語のドキュメント』](README_JP.md)
+SwiftUI で作られた PopupView は、簡単で使いやすいです！[『日本語のREADME』](README_JP.md)
 
 
  
@@ -12,7 +12,7 @@ SwiftUI で作られた PopupView は、簡単で使いやすいです！[『日
 
 ## Installation
 
-#### Swift Package Manager
+### Swift Package Manager
 
 ```swift
 dependencies: [
@@ -21,7 +21,7 @@ dependencies: [
 ```
 
 
-#### Cocoapods
+### Cocoapods
 
 ```ruby
 pod 'PopupUI'
@@ -34,9 +34,9 @@ pod 'PopupUI'
 import PopupUI
 ```
 
-#### Basic Usage
+### Basic Usage
 
-##### 1.Adding
+#### 1.Adding
 Add `.popupUI()` after a view to pop up within it's scope:
 ```swift
 var body: some View {
@@ -46,7 +46,7 @@ var body: some View {
     .popupUI()  // <-- Add to the view
 }
 ```
-Or add to the root view, only once to pop up throughout the entire application:
+**Or** add to the root view, only once to pop up throughout the entire application:
 ```swift
 @main
 struct PopupUI_demoApp: App {
@@ -59,14 +59,14 @@ struct PopupUI_demoApp: App {
 }
 ```
 
-##### 2.Showing
+#### 2.Showing
 ```swift
 PopupUI
     .show(Text("Hello, PopupUI!"))
 ```
 
 
-##### 3.Hiding
+#### 3.Hiding
 ```swift
 PopupUI
     .hide()     // <-- Hide the last popup 
@@ -74,14 +74,15 @@ PopupUI
 
 
 ​    
-#### Customization
+### Advanced Usage
+#### Show with custom parameters
 Customize various parameters:
 ```swift
 PopupUI
     .show(YourCustomView())                 // <-- The view to be shown
     .from(.bottom)                          // <-- The direction from which the view is shown
     .stay(2)                                // <-- The duration of the view staying
-    .to(.center, .easeOut(duration: 0.3))   // <-- The direction to which the view is hidden
+    .to(.center, .easeOut(duration: 0.3))   // <-- The direction to which the view is hidden and the animation
     .background(Color.black.opacity(0.3))   // <-- The background view
     .padding(24)                            // <-- The padding of the view
     .isSafeArea(true)                       // <-- Whether to avoid the safe area
@@ -94,7 +95,7 @@ PopupUI
     }
 ```
 
-Display a view and parameters in a callback way:
+Or display a view and customize the parameters through the closure:
 ```swift
 PopupUI
     .show {
@@ -122,4 +123,12 @@ configuration.stay = 2
 configuration.to = .center
 ...
 PopupConfiguration.default = configuration
+```
+Or:
+```swift
+PopupConfiguration
+    .default
+    .stay(2)
+    .to(.center)
+    ...
 ```

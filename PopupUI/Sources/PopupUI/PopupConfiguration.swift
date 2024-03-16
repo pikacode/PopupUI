@@ -85,6 +85,83 @@ extension PopupConfiguration {
     }
 }
 
+// MARK: - Configuration
+extension PopupConfiguration {
+    
+    @discardableResult
+    public func id(_ v: PopupViewID) -> Self {
+        id = v
+        return self
+    }
+    
+    @discardableResult
+    public func dismissWhenTapBackground(_ v: Bool) -> Self {
+        dismissWhenTapBackground = v
+        return self
+    }
+    
+    @discardableResult
+    public func background<Background: View>(_ v: Background) -> Self {
+        background = AnyView(v)
+        return self
+    }
+    
+    @discardableResult
+    public func backgroundClick(_ v: @escaping () -> ()) -> Self {
+        dismissCallback = { _ in v() }
+        return self
+    }
+    
+    @discardableResult
+    public func avoidKeyboard(_ v: Bool) -> Self {
+        isAvoidKeyboard = v
+        return self
+    }
+    
+    @discardableResult
+    public func stay(_ v: TimeInterval) -> Self {
+        stay = v
+        return self
+    }
+    
+    @discardableResult
+    public func from(_ position: PopupPosition, _ animation: Animation = PopupAnimation.default.animation) -> Self {
+        from = PopupAnimation(position, animation: animation)
+        return self
+    }
+    
+    @discardableResult
+    public func to(_ position: PopupPosition, _ animation: Animation = PopupAnimation.default.animation) -> Self {
+        to = PopupAnimation(position, animation: animation)
+        return self
+    }
+    
+    @discardableResult
+    public func isOpaque(_ v: Bool) -> Self {
+        isOpaque = v
+        return self
+    }
+    
+    @discardableResult
+    public func dismissCallback(_ v: @escaping (PopupViewID) -> ()) -> Self {
+        dismissCallback = v
+        return self
+    }
+    
+    @discardableResult
+    public func padding(_ v: CGFloat) -> Self {
+        padding = v
+        return self
+    }
+    
+    @discardableResult
+    public func isSafeArea(_ v: Bool) -> Self {
+        isSafeArea = v
+        return self
+    }
+    
+}
+
 class KeyboardHeightHelper: ObservableObject {
 
     @Published var keyboardHeight: CGFloat = 0
