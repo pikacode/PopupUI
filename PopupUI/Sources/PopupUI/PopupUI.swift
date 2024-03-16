@@ -73,22 +73,6 @@ public class PopupUI: ObservableObject {
     
 }
 
-
-extension DispatchQueue {
-    func after(_ delay: TimeInterval, execute: @escaping () -> Void) {
-        asyncAfter(deadline: .now() + delay, execute: execute)
-    }
-
-    static func mainSyncSafe(_ block: () -> Void) {
-        if Thread.isMainThread {
-            block()
-        } else {
-            DispatchQueue.main.sync(execute: block)
-        }
-    }
-}
-
-
 // MARK: - Configuration
 extension PopupUI {
     
@@ -101,8 +85,8 @@ extension PopupUI {
     }
     
     @discardableResult
-    public func dismissWhenTapOutside(_ v: Bool) -> Self {
-        configuration.dismissWhenTapOutside = v
+    public func dismissWhenTapBackground(_ v: Bool) -> Self {
+        configuration.dismissWhenTapBackground = v
         return self
     }
     
@@ -175,5 +159,19 @@ class PopupState: ObservableObject {
     
     static func update() {
         shared.id = UUID()
+    }
+}
+
+extension DispatchQueue {
+    func after(_ delay: TimeInterval, execute: @escaping () -> Void) {
+        asyncAfter(deadline: .now() + delay, execute: execute)
+    }
+
+    static func mainSyncSafe(_ block: () -> Void) {
+        if Thread.isMainThread {
+            block()
+        } else {
+            DispatchQueue.main.sync(execute: block)
+        }
     }
 }

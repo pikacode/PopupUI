@@ -26,7 +26,7 @@ struct PopupModifier: ViewModifier {
                     .opacity(PopupUI.popups.count > 0 ? 1 : 0)
                     .animation(.easeIn(duration: backgroundDuration), value: UUID())
                     .onTapGesture {
-                        if let popup = PopupUI.popups.last(where: { $0.configuration.dismissWhenTapOutside }) {
+                        if let popup = PopupUI.popups.last(where: { $0.configuration.dismissWhenTapBackground }) {
                             PopupUI.hide(popup.uniqueID)
                         }
                     }

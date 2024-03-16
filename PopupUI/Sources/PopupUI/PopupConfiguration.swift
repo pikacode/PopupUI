@@ -27,17 +27,9 @@ public class PopupConfiguration {
     
     public var to = PopupAnimation()
 
-    public var dismissWhenTapOutside = false
+    public var dismissWhenTapBackground = false
         
     public var background: AnyView = AnyView(Color.clear)
-    
-    static var currentBackground: AnyView {
-        if let last = PopupUI.popups.last {
-            return last.configuration.background
-        } else {
-            return AnyView(Color.clear)
-        }
-    }
     
     public var isOpaque: Bool = false
     
@@ -47,27 +39,14 @@ public class PopupConfiguration {
     
     public var isSafeArea: Bool = true
     
-    var edgeInsets: UIEdgeInsets {
-        if isSafeArea {
-            let window = UIApplication.shared.connectedScenes
-                .filter { $0.activationState == .foregroundActive }
-                .compactMap { $0 as? UIWindowScene }
-                .first?.windows
-                .filter { $0.isKeyWindow }.first
-            let top = window?.safeAreaInsets.top ?? 0
-            let bottom = window?.safeAreaInsets.bottom ?? 0
-            return UIEdgeInsets(top: top + padding, left: padding, bottom: bottom + padding, right: padding)
-        } else {
-            return UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
-        }
-    }
-        
     public var dismissCallback: (PopupViewID) -> () = {_ in}
-    
+}
+
+extension PopupConfiguration {
     func copy() -> PopupConfiguration {
         let config = PopupConfiguration()
         config.id = id
-        config.dismissWhenTapOutside = dismissWhenTapOutside
+        config.dismissWhenTapBackground = dismissWhenTapBackground
         config.from = from
         config.stay = stay
         config.to = to
@@ -79,9 +58,32 @@ public class PopupConfiguration {
         config.dismissCallback = dismissCallback
         return config
     }
-
+    
+    var edgeInsets: UIEdgeInsets {
+        if isSafeArea {
+            let window = UIApplication.shared.connectedScenes
+                .filter { $0.activationState == .foregroundActive }
+                .compactMap { $0 as? UIWindowScene }
+                .first?.windows
+                .filter { $0.isKeyWindow }.first
+            let top = window?.safeAreaInsets.top ?? 0
+            let bottom = window?.safeAreaInsets.bottom ?? 0
+            let left = window?.safeAreaInsets.left ?? 0
+            let right = window?.safeAreaInsets.right ?? 0
+            return UIEdgeInsets(top: top + padding, left: left + padding, bottom: bottom + padding, right: right + padding)
+        } else {
+            return UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
+        }
+    }
+    
+    static var currentBackground: AnyView {
+        if let last = PopupUI.popups.last {
+            return last.configuration.background
+        } else {
+            return AnyView(Color.clear)
+        }
+    }
 }
-
 
 class KeyboardHeightHelper: ObservableObject {
 
