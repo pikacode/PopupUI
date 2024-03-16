@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PopupUI
 
 struct ContentView: View {
     var body: some View {
@@ -14,8 +15,12 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundStyle(.tint)
             Text("Hello, world!")
+                .onTapGesture {
+                    PopupUI.show(Text("asdasdasd"))
+                }
         }
         .padding()
+        .popupUI()
     }
 }
 

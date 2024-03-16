@@ -1,0 +1,16 @@
+PODS:
+  - PopupUI (1.0.0)
+
+DEPENDENCIES:
+  - PopupUI (from `../PopupUI.podspec`)
+
+EXTERNAL SOURCES:
+  PopupUI:
+    :path: "../PopupUI.podspec"
+
+SPEC CHECKSUMS:
+  PopupUI: b7f8775a1e24e34285b425eda446461bf3331d92
+
+PODFILE CHECKSUM: f89a5806eb2e37702c4e7e21de332be380a9f32b
+
+COCOAPODS: 1.15.2

@@ -31,9 +31,11 @@ public class PopupConfiguration {
         
     public var background: AnyView = AnyView(Color.clear)
     
-    static var sharedBackground: AnyView = AnyView(Color.clear) {
-        didSet {
-            PopupState.update()
+    static var currentBackground: AnyView {
+        if let last = PopupUI.popups.last {
+            return last.configuration.background
+        } else {
+            return AnyView(Color.clear)
         }
     }
     

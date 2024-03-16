@@ -8,10 +8,6 @@
 import SwiftUI
 import Combine
 
-
-
-
-
 public typealias PopupViewID = String
 
 enum PopupStatus {
@@ -63,9 +59,6 @@ struct PopupView: View {
                 if PopupUI.popups.first(where: { $0.id == id && $0.uniqueID != uniqueID }) != nil {
                     PopupUI.popups.removeAll(where: { $0.uniqueID == uniqueID })
                     return
-                }
-                withAnimation(.none) {
-                    PopupConfiguration.sharedBackground = configuration.background
                 }
                 show()
             })

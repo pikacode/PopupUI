@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
 
 	s.source       = { :git => "https://github.com/pikacode/PopupUI", :tag => "#{s.version}" }
 
-	s.source_files  = "PopupUI", "PopupUI/Sources/PopupUI/*.{swift}"
+	s.source_files  =  "PopupUI/Sources/PopupUI/*.{swift}"
 
 	s.frameworks = "SwiftUI", "Combine"
 

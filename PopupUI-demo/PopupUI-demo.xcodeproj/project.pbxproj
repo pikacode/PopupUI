@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		26F3C6D92BA5EBAC0045F66C /* PopupUI in Frameworks */ = {isa = PBXBuildFile; productRef = 26F3C6D82BA5EBAC0045F66C /* PopupUI */; };
 		66EDA78E2BA18B320001DE4C /* PopupUI_demoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EDA78D2BA18B320001DE4C /* PopupUI_demoApp.swift */; };
 		66EDA7902BA18B320001DE4C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EDA78F2BA18B320001DE4C /* ContentView.swift */; };
 		66EDA7922BA18B330001DE4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66EDA7912BA18B330001DE4C /* Assets.xcassets */; };
 		66EDA7952BA18B330001DE4C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66EDA7942BA18B330001DE4C /* Preview Assets.xcassets */; };
 		66EDA7A92BA29F6A0001DE4C /* AnyCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EDA7A82BA29F6A0001DE4C /* AnyCustomView.swift */; };
-		66EDA7AD2BA449540001DE4C /* PopupUI in Frameworks */ = {isa = PBXBuildFile; productRef = 66EDA7AC2BA449540001DE4C /* PopupUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,7 +30,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66EDA7AD2BA449540001DE4C /* PopupUI in Frameworks */,
+				26F3C6D92BA5EBAC0045F66C /* PopupUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,7 +107,7 @@
 			);
 			name = "PopupUI-demo";
 			packageProductDependencies = (
-				66EDA7AC2BA449540001DE4C /* PopupUI */,
+				26F3C6D82BA5EBAC0045F66C /* PopupUI */,
 			);
 			productName = "PopupUI-demo";
 			productReference = 66EDA78A2BA18B320001DE4C /* PopupUI-demo.app */;
@@ -375,7 +375,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		66EDA7AC2BA449540001DE4C /* PopupUI */ = {
+		26F3C6D82BA5EBAC0045F66C /* PopupUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = PopupUI;
 		};

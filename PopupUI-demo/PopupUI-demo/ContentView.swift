@@ -11,11 +11,12 @@ import PopupUI
 struct ContentView: View {
     
     @State var from: PopupPosition = .center
-    @State var to: PopupPosition = .bottom
+    @State var to: PopupPosition = .center
     
     @State var backgroundColor: Color = .black.opacity(0.5)
     @State var stay: TimeInterval = 2
     @State var padding: CGFloat = 0
+    @State var isSafeArea: Bool = false
     
     var body: some View {
         List {
@@ -33,6 +34,7 @@ struct ContentView: View {
                                 .to(to)
                                 .background(backgroundColor)
                                 .padding(padding * 10)
+                                .isSafeArea(isSafeArea)
                         }
                     
                     Text("Hide")
@@ -64,6 +66,8 @@ struct ContentView: View {
                     Stepper("Stay:      \(Int(stay))", value: $stay, in: 0...100)
 
                     Stepper("Padding:       \(Int(padding * 10))", value: $padding, in: 0...50)
+                    
+                    Toggle("Is Safe Area", isOn: $isSafeArea)
                 }
                 .frame(height: 20)
                 
@@ -107,6 +111,10 @@ struct ContentView: View {
                                         .to(.\(to.rawValue))
                                         .background(.backgroundColor)
                                         .padding(\(Int(padding * 10)))
+                                        .isSafeArea(\(isSafeArea))
+                                    
+                                    PopupUI
+                                        .hide()
                                     """
     }
 
