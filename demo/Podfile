@@ -1,9 +1,0 @@
-
-platform :ios,'13.0'
-use_frameworks!
-
-
-target 'demo' do
-    pod 'PopupUI', :path => '../PopupUI.podspec'
-end
-
