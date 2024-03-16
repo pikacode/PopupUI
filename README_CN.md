@@ -8,9 +8,9 @@ SwiftUI で作られた PopupView は、簡単で使いやすいです！[『日
 
 ## 截图
 ![](screenshot/1.gif)
-  
+
    
-  
+
 ## 安装
 
 ### Swift Package Manager
