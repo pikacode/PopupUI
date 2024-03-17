@@ -1,5 +1,5 @@
 # PopupUI
-Easy to pop up any view written with SwiftUI！ [*English README*](README.md)
+Easy to Toast & Popup any View by SwiftUI！ [*English README*](README.md)
 
 SwiftUI 实现的弹窗控件，简单易用！
 
