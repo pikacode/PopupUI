@@ -35,7 +35,7 @@ public class PopupConfiguration {
     
     public var isSafeArea: Bool = false
     
-    public var isOpaque: Bool = false
+    public var isOpaque: Bool = true
     
     public var isAvoidKeyboard = true
     
