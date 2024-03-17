@@ -23,6 +23,8 @@ struct PopupView: View {
     
     @State var status: PopupStatus = .prepare
     
+    @StateObject var keyboardHelper = KeyboardHeightHelper()
+    
     let configuration: PopupConfiguration
     
     private let shoudHideSubject = CurrentValueSubject<Bool, Never>(false)
@@ -82,13 +84,12 @@ struct PopupView: View {
     
     func hide() {
         status = .hide
+        configuration.dismissCallback(id)
     }
     
     func shouldHide() {
         shoudHideSubject.send(true)
     }
-    
-   
     
 }
 
@@ -135,7 +136,13 @@ extension PopupView {
     }
     
     var offset_show: CGSize {
-        let insets = configuration.edgeInsets
+        var insets = configuration.edgeInsets
+        
+        if configuration.isAvoidKeyboard, configuration.from.position == .bottom, keyboardHelper.keyboardDisplayed {
+            insets.bottom += keyboardHelper.keyboardHeight
+            insets.bottom += configuration.keyboardPadding
+        }
+        
         switch configuration.from.position {
         case .center:
             return CGSize.zero

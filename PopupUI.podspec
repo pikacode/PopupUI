@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 
 	s.author       = { "pikacode" => "pikacode@qq.com" }
 
-	s.platform     = :ios, "13.0"
+	s.platform     = :ios, "14.0"
 
 	s.source       = { :git => "https://github.com/pikacode/PopupUI.git", :tag => "#{s.version}" }
 

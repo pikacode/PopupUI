@@ -72,7 +72,7 @@ PopupUI
 #### 3.Hiding
 ```swift
 PopupUI
-    .hide()     // <-- Hide the last popup 
+    .hide()     // Hide the last popup 
 ```
 
 
@@ -82,18 +82,18 @@ PopupUI
 Customize various parameters:
 ```swift
 PopupUI
-    .show(YourCustomView())                 // <-- The view to be shown
-    .from(.bottom)                          // <-- The direction from which the view is shown
-    .stay(2)                                // <-- The duration of the view staying
-    .to(.center, .easeOut(duration: 0.3))   // <-- The direction to which the view is hidden and the animation
-    .background(Color.black.opacity(0.3))   // <-- The background view
-    .padding(24)                            // <-- The padding of the view
-    .isSafeArea(true)                       // <-- Whether to avoid the safe area
-    .id("Unique Popup ID")                  // <-- The unique identifier, when not passed, the same id is used by default, so only one popup can be displayed at a time, you can display multiple popups at the same time by setting different ids
-    .isAvoidKeyboard(true)                  // <-- Whether to avoid the keyboard
-    .isOpaque(true)                         // <-- Whether to prevent the user from interacting with the background view
-    .dismissWhenTapBackground(true)         // <-- Whether to hide when the background view is tapped
-    .dismissCallback { id in                // <-- The callback when the view is hidden
+    .show(YourCustomView())                 // The view to be shown
+    .from(.bottom)                          // The direction from which the view is shown
+    .stay(2)                                // The duration of the view staying
+    .to(.center, .easeOut(duration: 0.3))   // The direction to which the view is hidden and the animation
+    .background(Color.black.opacity(0.3))   // The background view
+    .padding(24)                            // The padding of the view
+    .isSafeArea(true)                       // Whether to avoid the safe area
+    .id("Unique Popup ID")                  // The unique identifier, when not passed, the same id is used by default, so only one popup can be displayed at a time, you can display multiple popups at the same time by setting different ids
+    .isAvoidKeyboard(true)                  // Whether to avoid the keyboard
+    .isOpaque(true)                         // Whether to prevent the user from interacting with the background view
+    .dismissWhenTapBackground(true)         // Whether to hide when the background view is tapped
+    .dismissCallback { id in                // The callback when the view is hidden
         print("Popup dismissed: \(id)")
     }
 ```
@@ -113,7 +113,7 @@ PopupUI
 #### Hide a specified popup
 ```swift
 PopupUI
-    .hide("Unique Popup ID")    // <-- Hide the specified popup
+    .hide("Unique Popup ID")    // Hide the specified popup
 ```
 
   

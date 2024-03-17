@@ -71,7 +71,7 @@ PopupUI
 #### 3.隐藏
 ```swift
 PopupUI
-    .hide()     // <-- 隐藏最后一个弹窗
+    .hide()     // 隐藏最后一个弹窗
 ```
 
 
@@ -80,18 +80,18 @@ PopupUI
 #### 自定义参数
 ```swift
 PopupUI
-    .show(YourCustomView())                 // <-- 自定义视图
-    .from(.bottom)                          // <-- 显示的方向
-    .stay(2)                                // <-- 显示时间
-    .to(.center, .easeOut(duration: 0.3))   // <-- 隐藏的方向并指定动画与时间
-    .background(Color.black.opacity(0.3))   // <-- 背景
-    .padding(24)                            // <-- 从各方向弹出时增加的偏移量
-    .isSafeArea(true)                       // <-- 是否在安全区域内
-    .id("Unique Popup ID")                  // <-- 唯一标识，不传时默认使用了同一个 id 所以一次只能弹出一个弹窗，可以通过设置不同的 id 来同时弹出多个弹窗
-    .isAvoidKeyboard(true)                  // <-- 是否避开键盘
-    .isOpaque(true)                         // <-- 是否可以透过弹窗的背景点击后面的视图
-    .dismissWhenTapBackground(true)         // <-- 点击背景 是否隐藏
-    .dismissCallback { id in                // <-- 隐藏时的回调
+    .show(YourCustomView())                 // 自定义视图
+    .from(.bottom)                          // 显示的方向
+    .stay(2)                                // 显示时间
+    .to(.center, .easeOut(duration: 0.3))   // 隐藏的方向并指定动画与时间
+    .background(Color.black.opacity(0.3))   // 背景
+    .padding(24)                            // 从各方向弹出时增加的偏移量
+    .isSafeArea(true)                       // 是否在安全区域内
+    .id("Unique Popup ID")                  // 唯一标识，不传时默认使用了同一个 id 所以一次只能弹出一个弹窗，可以通过设置不同的 id 来同时弹出多个弹窗
+    .isAvoidKeyboard(true)                  // 是否避开键盘
+    .isOpaque(true)                         // 是否可以透过弹窗的背景点击后面的视图
+    .dismissWhenTapBackground(true)         // 点击背景 是否隐藏
+    .dismissCallback { id in                // 隐藏时的回调
         print("Popup dismissed: \(id)")
     }
 ```
@@ -111,7 +111,7 @@ PopupUI
 隐藏：
 ```swift
 PopupUI
-    .hide("Unique Popup ID")    // <-- 通过 id 隐藏一个指定的弹窗
+    .hide("Unique Popup ID")    // 通过 id 隐藏一个指定的弹窗
 ```
 
   

@@ -35,6 +35,9 @@ struct ContentView: View {
                                 .background(backgroundColor)
                                 .padding(padding * 10)
                                 .isSafeArea(isSafeArea)
+                                .dismissCallback { id in
+                                    print("dismissed ID: \(id)")
+                                }
                         }
                     
                     Text("Hide")
@@ -47,7 +50,7 @@ struct ContentView: View {
                 
                 Group {
                     
-                    Picker("Brom", selection: $from) {
+                    Picker("From", selection: $from) {
                         ForEach(PopupPosition.allCases, id: \.self) {
                             Text($0.rawValue.capitalized)
                                 .id($0)
@@ -79,11 +82,18 @@ struct ContentView: View {
                 VStack {
                     HStack {
                         Image(systemName: "doc.on.doc")
+                            .padding(.vertical, 8)
                             .foregroundColor(.blue)
                             .onTapGesture {
                                 UIPasteboard.general.string = code
                                 PopupUI
-                                    .show(Text("Copy success!").padding().background(Color.white))
+                                    .show(
+                                        Text("Copy success!")
+                                            .padding()
+                                            .foregroundColor(.white)
+                                            .background(Color.black.opacity(0.7))
+                                            .cornerRadius(8)
+                                    )
                                     .stay(2)
                             }
                         Spacer()
@@ -91,8 +101,10 @@ struct ContentView: View {
                     
                     Text(code)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .foregroundColor(.white)
-                    .background(.black.opacity(0.7))
+                    .foregroundColor(.black.opacity(0.9))
+                    .background(.black.opacity(0.05))
+                    .cornerRadius(10)
+                    .padding(.bottom)
                 }
             } header: {
                 Text("Code Generation")

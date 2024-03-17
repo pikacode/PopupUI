@@ -9,15 +9,25 @@ import SwiftUI
 import PopupUI
 
 struct AnyCustomView: View {
+    
+    @State var text: String = ""
 
     var body: some View {
         VStack {
             Text("Hello, PopupUI!")
                 .padding()
             
-            Image(systemName: "star.fill")
-                .font(.system(size: 30))
-                .foregroundColor(.yellow.opacity(0.7))
+//            Image(systemName: "star.fill")
+//                .font(.system(size: 30))
+//                .foregroundColor(.yellow.opacity(0.7))
+            
+            TextField("keyboard avoiding", text: $text)
+                .foregroundColor(.black.opacity(0.5))
+                .padding(.vertical, 8)
+                .padding(.horizontal, 16)
+                .background(.black.opacity(0.1))
+                .cornerRadius(8)
+                .padding(.horizontal, 40)
             
             Button(
                 action: {
@@ -31,7 +41,7 @@ struct AnyCustomView: View {
                         .background(Color.blue)
                         .cornerRadius(10)
                         .padding(.horizontal, 40)
-                        .padding()
+                        .padding(.vertical)
                 }
             )
         }

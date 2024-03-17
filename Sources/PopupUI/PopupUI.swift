@@ -16,7 +16,7 @@ extension View {
 
 public class PopupUI: ObservableObject {
     
-    public static var sharedId: PopupViewID = "PopupView.id.shared"
+    public static var sharedId: PopupViewID = "PopupUI.ID.Shared"
     
     static var popups: [PopupUI] = [] {
         didSet {

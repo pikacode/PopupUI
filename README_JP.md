@@ -71,7 +71,7 @@ PopupUI
 #### 3.非表示
 ```swift
 PopupUI
-    .hide()     // <-- 最後に表示されたポップアップを非表示　 
+    .hide()     // 最後に表示されたポップアップを非表示　 
 ```
 
 
@@ -81,18 +81,18 @@ PopupUI
 さまざまなパラメータを設定して、表示する：
 ```swift
 PopupUI
-    .show(YourCustomView())                 // <-- 表示するビュー
-    .from(.bottom)                          // <-- 表示する方向
-    .stay(2)                                // <-- 表示する時間
-    .to(.center, .easeOut(duration: 0.3))   // <-- 表示する位置、アニメーション
-    .background(Color.black.opacity(0.3))   // <-- 背景の色
-    .padding(24)                            // <-- ビューの余白
-    .isSafeArea(true)                       // <-- セーフエリアを考慮する
-    .id("Unique Popup ID")                  // <-- ユニークな識別子、指定しない場合、デフォルトで同じ id が使用されるため、一度に 1 つのポップアップのみが表示され、異なる id を設定すると複数のポップアップを同時に表示できます
-    .isAvoidKeyboard(true)                  // <-- キーボードを避ける
-    .isOpaque(true)                         // <-- 背景後のビューとのインタラクションを防ぐ
-    .dismissWhenTapBackground(true)         // <-- 背景をタップして非表示
-    .dismissCallback { id in                // <-- 非表示時のコールバック
+    .show(YourCustomView())                 // 表示するビュー
+    .from(.bottom)                          // 表示する方向
+    .stay(2)                                // 表示する時間
+    .to(.center, .easeOut(duration: 0.3))   // 表示する位置、アニメーション
+    .background(Color.black.opacity(0.3))   // 背景の色
+    .padding(24)                            // ビューの余白
+    .isSafeArea(true)                       // セーフエリアを考慮する
+    .id("Unique Popup ID")                  // ユニークな識別子、指定しない場合、デフォルトで同じ id が使用されるため、一度に 1 つのポップアップのみが表示され、異なる id を設定すると複数のポップアップを同時に表示できます
+    .isAvoidKeyboard(true)                  // キーボードを避ける
+    .isOpaque(true)                         // 背景後のビューとのインタラクションを防ぐ
+    .dismissWhenTapBackground(true)         // 背景をタップして非表示
+    .dismissCallback { id in                // 非表示時のコールバック
         print("Popup dismissed: \(id)")
     }
 ```
@@ -112,7 +112,7 @@ PopupUI
 #### 指定したポップアップを非表示：
 ```swift
 PopupUI
-    .hide("Unique Popup ID")    // <-- ユニークな id を指定して非表示
+    .hide("Unique Popup ID")    // ユニークな id を指定して非表示
 ```
 
   

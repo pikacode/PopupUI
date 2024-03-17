@@ -31,15 +31,18 @@ public class PopupConfiguration {
         
     public var background: AnyView = AnyView(Color.clear)
     
+    public var padding: CGFloat = 0
+    
+    public var isSafeArea: Bool = false
+    
     public var isOpaque: Bool = false
     
     public var isAvoidKeyboard = true
     
-    public var padding: CGFloat = 20
-    
-    public var isSafeArea: Bool = true
+    public var keyboardPadding: CGFloat = 0
     
     public var dismissCallback: (PopupViewID) -> () = {_ in}
+    
 }
 
 extension PopupConfiguration {
@@ -60,29 +63,23 @@ extension PopupConfiguration {
     }
     
     var edgeInsets: UIEdgeInsets {
+        let window = UIApplication.shared.connectedScenes
+            .filter { $0.activationState == .foregroundActive }
+            .compactMap { $0 as? UIWindowScene }
+            .first?.windows
+            .filter { $0.isKeyWindow }.first
+        let top = window?.safeAreaInsets.top ?? 0
+        let bottom = window?.safeAreaInsets.bottom ?? 0
+        let systemPadding: CGFloat = 0
         if isSafeArea {
-            let window = UIApplication.shared.connectedScenes
-                .filter { $0.activationState == .foregroundActive }
-                .compactMap { $0 as? UIWindowScene }
-                .first?.windows
-                .filter { $0.isKeyWindow }.first
-            let top = window?.safeAreaInsets.top ?? 0
-            let bottom = window?.safeAreaInsets.bottom ?? 0
             let left = window?.safeAreaInsets.left ?? 0
             let right = window?.safeAreaInsets.right ?? 0
-            return UIEdgeInsets(top: top + padding, left: left + padding, bottom: bottom + padding, right: right + padding)
+            return UIEdgeInsets(top: top + padding, left: left + padding, bottom: bottom + padding + systemPadding, right: right + padding)
         } else {
-            return UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
+            return UIEdgeInsets(top: padding, left: padding, bottom: padding + systemPadding, right: padding)
         }
     }
     
-    static var currentBackground: AnyView {
-        if let last = PopupUI.popups.last {
-            return last.configuration.background
-        } else {
-            return AnyView(Color.clear)
-        }
-    }
 }
 
 // MARK: - Configuration
@@ -185,8 +182,10 @@ class KeyboardHeightHelper: ObservableObject {
         NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification,
                                                object: nil,
                                                queue: .main) { (notification) in
-            self.keyboardHeight = 0
-            self.keyboardDisplayed = false
+            DispatchQueue.main.async {
+                self.keyboardHeight = 0
+                self.keyboardDisplayed = false
+            }
         }
     }
 }
