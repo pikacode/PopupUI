@@ -58,6 +58,7 @@ extension PopupConfiguration {
         config.isAvoidKeyboard = isAvoidKeyboard
         config.padding = padding
         config.isSafeArea = isSafeArea
+        config.keyboardPadding = keyboardPadding
         config.dismissCallback = dismissCallback
         return config
     }
@@ -154,6 +155,12 @@ extension PopupConfiguration {
     @discardableResult
     public func isSafeArea(_ v: Bool) -> Self {
         isSafeArea = v
+        return self
+    }
+    
+    @discardableResult
+    public func keyboardPadding(_ v: CGFloat) -> Self {
+        keyboardPadding = v
         return self
     }
     
