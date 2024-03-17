@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
 
 	s.name         = "PopupUI"
 
-	s.version      = "1.0.0"
+	s.version      = "1.0.1"
 
 	s.summary      = "Easy to pop up any view by SwiftUI！    SwiftUI 实现的弹窗控件，简单易用！"
 
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 
 	s.author       = { "pikacode" => "pikacode@qq.com" }
 
-	s.platform     = :ios, "14.0"
+	s.platform     = :ios, "15.0"
 
 	s.source       = { :git => "https://github.com/pikacode/PopupUI.git", :tag => "#{s.version}" }
 
@@ -27,6 +27,6 @@ Pod::Spec.new do |s|
 	s.frameworks = "SwiftUI", "Combine"
 
 	s.requires_arc = true
-	s.swift_versions = "5.0"
+	s.swift_versions = "5.5"
 
 end
