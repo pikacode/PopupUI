@@ -195,6 +195,20 @@ extension PopupConfiguration {
         return self
     }
     
+    @discardableResult
+    public func scale(from: CGFloat, to: CGFloat) -> Self {
+        scaleFrom(from)
+        scaleTo(to)
+        return self
+    }
+    
+    @discardableResult
+    public func opacity(from: CGFloat, to: CGFloat) -> Self {
+        opacityFrom(from)
+        opacityTo(to)
+        return self
+    }
+    
 }
 
 class KeyboardHeightHelper: ObservableObject {

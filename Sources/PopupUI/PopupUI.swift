@@ -115,14 +115,18 @@ extension PopupUI {
     }
     
     @discardableResult
-    public func from(_ position: PopupPosition, _ animation: Animation = PopupAnimation.default.animation) -> Self {
+    public func from(_ position: PopupPosition, _ animation: Animation = PopupAnimation.default.animation, scale: CGFloat? = nil, opacity: CGFloat? = nil) -> Self {
         configuration.from = PopupAnimation(position, animation: animation)
+        configuration.scaleFrom = scale
+        configuration.opacityFrom = opacity
         return self
     }
     
     @discardableResult
-    public func to(_ position: PopupPosition, _ animation: Animation = PopupAnimation.default.animation) -> Self {
+    public func to(_ position: PopupPosition, _ animation: Animation = PopupAnimation.default.animation, scale: CGFloat? = nil, opacity: CGFloat? = nil) -> Self {
         configuration.to = PopupAnimation(position, animation: animation)
+        configuration.scaleTo = scale
+        configuration.opacityTo = opacity
         return self
     }
     
@@ -147,6 +151,44 @@ extension PopupUI {
     @discardableResult
     public func isSafeArea(_ v: Bool) -> Self {
         configuration.isSafeArea = v
+        return self
+    }
+    
+    @discardableResult
+    public func scaleFrom(_ v: CGFloat) -> Self {
+        configuration.scaleFrom = v
+        return self
+    }
+    
+    @discardableResult
+    public func scaleTo(_ v: CGFloat) -> Self {
+        configuration.scaleTo = v
+        return self
+    }
+    
+    @discardableResult
+    public func opacityFrom(_ v: CGFloat) -> Self {
+        configuration.opacityFrom = v
+        return self
+    }
+    
+    @discardableResult
+    public func opacityTo(_ v: CGFloat) -> Self {
+        configuration.opacityTo = v
+        return self
+    }
+    
+    @discardableResult
+    public func scale(from: CGFloat, to: CGFloat) -> Self {
+        configuration.scaleFrom(from)
+        configuration.scaleTo(to)
+        return self
+    }
+    
+    @discardableResult
+    public func opacity(from: CGFloat, to: CGFloat) -> Self {
+        configuration.opacityFrom(from)
+        configuration.opacityTo(to)
         return self
     }
     
