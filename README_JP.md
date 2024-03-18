@@ -146,14 +146,14 @@ App 中のすべてのスタイルをいくつかのテンプレートとして�
 
 ```swift
 extension PopupConfiguration {      //PopupStyle
-    static let center: PopupConfiguration {
+    static var center: PopupConfiguration {
             PopupConfiguration()
                         .from(.center)
                         .to(.center, .easeOut)
                         ...
     }
     
-    static let bottom: PopupConfiguration {
+    static var bottom: PopupConfiguration {
             PopupConfiguration()
                         .from(.bottom)
                         .isOpaque(false)

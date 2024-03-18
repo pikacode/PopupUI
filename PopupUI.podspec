@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
 
 	s.name         = "PopupUI"
 
-	s.version      = "1.0.3"
+	s.version      = "1.0.4"
 
 	s.summary      = "Easy to pop up any view by SwiftUI！    SwiftUI 实现的弹窗控件，简单易用！"
 
