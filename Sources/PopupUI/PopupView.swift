@@ -20,9 +20,13 @@ enum PopupStatus {
 struct PopupView: View {
             
     let content: any View
-//    @EnvironmentObject var state: PopupUI.State
     
-    @State var status: PopupStatus = .notAppear
+    @State var status: PopupStatus = .notAppear {
+        didSet {
+            configuration.status = status
+            PopupState.update()
+        }
+    }
     
     @StateObject var keyboardHelper = KeyboardHeightHelper()
     
@@ -96,6 +100,7 @@ struct PopupView: View {
     
     func hide() {
         status = .hide
+        PopupState.update()
         configuration.dismissCallback(id)
     }
     

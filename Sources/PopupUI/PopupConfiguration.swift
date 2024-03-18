@@ -50,6 +50,8 @@ public class PopupConfiguration {
     public var opacityFrom: CGFloat?
     
     public var opacityTo: CGFloat?
+    
+    var status: PopupStatus = .notAppear
 }
 
 extension PopupConfiguration {

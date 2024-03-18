@@ -22,9 +22,9 @@ struct PopupModifier: ViewModifier {
             .overlay {
                 Group {
                     configuration.background
-                        .opacity(PopupUI.popups.count > 0 ? 1 : 0)
-                        .animation(configuration.to.animation, value: UUID())
-                        .allowsHitTesting(!configuration.isOpaque)
+                        .opacity(backgroundOpacity)
+                        .animation(backgroundAnimation, value: UUID())
+                        .allowsHitTesting(configuration.isOpaque)
                         .onTapGesture {
                             if let popup = PopupUI.popups.last(where: { $0.configuration.dismissWhenTapBackground }) {
                                 PopupUI.hide(popup.uniqueID)
@@ -38,4 +38,37 @@ struct PopupModifier: ViewModifier {
                 .edgesIgnoringSafeArea(.all)
             }
     }
+    
+    var backgroundAnimation: Animation? {
+        guard let last = PopupUI.popups.last else { return nil }
+        switch last.configuration.status {
+        case .show:
+            return last.configuration.from.animation
+        case .hide:
+            return last.configuration.to.animation
+        default:
+            return nil
+        }
+    }
+    
+    var backgroundOpacity: CGFloat {
+        switch PopupUI.popups.count {
+        case 1:
+            if let status = PopupUI.popups.last?.configuration.status {
+                switch status {
+                case .show:
+                    return 1
+                default:
+                    return 0
+                }
+            } else {
+                return 1
+            }
+        case 2...:
+            return 1
+        default:
+            return 0
+        }
+    }
+    
 }
