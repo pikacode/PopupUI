@@ -11,6 +11,7 @@ import Combine
 public typealias PopupViewID = String
 
 enum PopupStatus {
+    case notAppear
     case prepare
     case show
     case hide
@@ -21,7 +22,7 @@ struct PopupView: View {
     let content: any View
 //    @EnvironmentObject var state: PopupUI.State
     
-    @State var status: PopupStatus = .prepare
+    @State var status: PopupStatus = .notAppear
     
     @StateObject var keyboardHelper = KeyboardHeightHelper()
     
@@ -36,19 +37,14 @@ struct PopupView: View {
     
     let uniqueID = UUID().description
 
-    @State var size: CGSize = .zero
+    @State var size: CGSize = UIScreen.main.bounds.size
     
     var body: some View {
         AnyView(content)
             .scaleEffect(scale)
-            .opacity(status == .show ? 1 : 0)
-            .animation(status == .show ? configuration.from.animation : configuration.to.animation, value: UUID())
+            .opacity(opacity)
+            .animation(animation, value: UUID())
             .offset(offset)
-            .onReceive(shoudHideSubject, perform: { o in
-                if shoudHideSubject.value {
-                    hide()
-                }
-            })
             .background(
                 GeometryReader(content: { proxy in
                     Color.clear
@@ -57,19 +53,35 @@ struct PopupView: View {
                         })
                 })
             )
+            .onReceive(shoudHideSubject, perform: { o in
+                if shoudHideSubject.value {
+                    hide()
+                }
+            })
             .onAppear(perform: {
                 if PopupUI.popups.first(where: { $0.id == id && $0.uniqueID != uniqueID }) != nil {
                     PopupUI.popups.removeAll(where: { $0.uniqueID == uniqueID })
                     return
                 }
-                show()
+                prepareToShow()
             })
     }
     
-    func prepare() {
+    func prepareToShow() {
         status = .prepare
         DispatchQueue.main.after(0.01) {
             show()
+        }
+    }
+    
+    var animation: Animation? {
+        switch status {
+        case .prepare, .notAppear:
+            return nil
+        case .show:
+            return configuration.from.animation
+        case .hide:
+            return configuration.to.animation
         }
     }
     
@@ -98,20 +110,49 @@ extension PopupView {
     
     var scale: CGFloat {
         switch status {
-        case .prepare:
-            if configuration.from.position == .center {
-                return 0.5
+        case .prepare, .notAppear:
+            if let scale = configuration.scaleFrom {
+                return scale
             } else {
-                return 0.9
+                if configuration.from.position == .center {
+                    return 0.5
+                } else {
+                    return 1
+                }
             }
         case .show:
             return 1
         case .hide:
-            if configuration.to.position == .center {
-                return 0.5
+            if let scale = configuration.scaleTo {
+                return scale
             } else {
-                return 0.9
+                if configuration.to.position == .center {
+                    return 0.5
+                } else {
+                    return 1
+                }
             }
+        }
+    }
+    
+    var opacity: CGFloat {
+        switch status {
+        case .prepare:
+            if let opacity = configuration.opacityFrom {
+                return opacity
+            } else {            
+                return 0
+            }
+        case .hide:
+            if let opacity = configuration.opacityTo {
+                return opacity
+            } else {
+                return 0
+            }
+        case .show:
+            return 1
+        case .notAppear:
+            return 0
         }
     }
     
@@ -174,7 +215,7 @@ extension PopupView {
     
     var offset: CGSize {
         switch status {
-        case .prepare:
+        case .prepare, .notAppear:
             return offset_prepare
         case .show:
             return offset_show

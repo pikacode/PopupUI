@@ -43,6 +43,13 @@ public class PopupConfiguration {
     
     public var dismissCallback: (PopupViewID) -> () = {_ in}
     
+    public var scaleFrom: CGFloat?
+    
+    public var scaleTo: CGFloat?
+    
+    public var opacityFrom: CGFloat?
+    
+    public var opacityTo: CGFloat?
 }
 
 extension PopupConfiguration {
@@ -161,6 +168,30 @@ extension PopupConfiguration {
     @discardableResult
     public func keyboardPadding(_ v: CGFloat) -> Self {
         keyboardPadding = v
+        return self
+    }
+    
+    @discardableResult
+    public func scaleFrom(_ v: CGFloat) -> Self {
+        scaleFrom = v
+        return self
+    }
+    
+    @discardableResult
+    public func scaleTo(_ v: CGFloat) -> Self {
+        scaleTo = v
+        return self
+    }
+    
+    @discardableResult
+    public func opacityFrom(_ v: CGFloat) -> Self {
+        opacityFrom = v
+        return self
+    }
+    
+    @discardableResult
+    public func opacityTo(_ v: CGFloat) -> Self {
+        opacityTo = v
         return self
     }
     
