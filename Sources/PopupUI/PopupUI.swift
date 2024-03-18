@@ -116,7 +116,7 @@ extension PopupUI {
     
     @discardableResult
     public func from(_ position: PopupPosition, _ animation: Animation = PopupAnimation.default.animation, scale: CGFloat? = nil, opacity: CGFloat? = nil) -> Self {
-        configuration.from = PopupAnimation(position, animation: animation)
+        configuration.from = PopupAnimation(position, animation)
         configuration.scaleFrom = scale
         configuration.opacityFrom = opacity
         return self
@@ -124,7 +124,7 @@ extension PopupUI {
     
     @discardableResult
     public func to(_ position: PopupPosition, _ animation: Animation = PopupAnimation.default.animation, scale: CGFloat? = nil, opacity: CGFloat? = nil) -> Self {
-        configuration.to = PopupAnimation(position, animation: animation)
+        configuration.to = PopupAnimation(position, animation)
         configuration.scaleTo = scale
         configuration.opacityTo = opacity
         return self
@@ -189,6 +189,18 @@ extension PopupUI {
     public func opacity(from: CGFloat, to: CGFloat) -> Self {
         configuration.opacityFrom(from)
         configuration.opacityTo(to)
+        return self
+    }
+    
+    @discardableResult
+    public func config(_ config: PopupConfiguration) -> Self {
+        popupView.configuration = config
+        return self
+    }
+    
+    @discardableResult
+    public func style(_ style: PopupStyle) -> Self {
+        popupView.configuration = style
         return self
     }
     

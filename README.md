@@ -139,3 +139,34 @@ PopupConfiguration
     .to(.center)
     ...
 ```
+   
+  
+  
+#### Define several style templates
+Define all styles in App as several templates to simplify the popup code:
+
+```swift
+extension PopupConfiguration {      //PopupStyle
+    static let center: PopupConfiguration {
+            PopupConfiguration()
+                        .from(.center)
+                        .to(.center, .easeOut)
+                        ...
+    }
+    
+    static let bottom: PopupConfiguration {
+            PopupConfiguration()
+                        .from(.bottom)
+                        .isOpaque(false)
+                        ...                                    
+    }
+}
+                                    
+PopupUI
+    .show(CenterView())
+    .config(.center)        //.style(.center)
+
+PopupUI
+    .show(BottomView())
+    .config(.bottom)
+```

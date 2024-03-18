@@ -138,3 +138,34 @@ PopupConfiguration
     .to(.center)
     ...
 ```
+  
+    
+    
+#### スタイルテンプレートを定義する
+App 中のすべてのスタイルをいくつかのテンプレートとして定義し、ポップアップコードを簡素化します：
+
+```swift
+extension PopupConfiguration {      //PopupStyle
+    static let center: PopupConfiguration {
+            PopupConfiguration()
+                        .from(.center)
+                        .to(.center, .easeOut)
+                        ...
+    }
+    
+    static let bottom: PopupConfiguration {
+            PopupConfiguration()
+                        .from(.bottom)
+                        .isOpaque(false)
+                        ...                                    
+    }
+}
+                                    
+PopupUI
+    .show(CenterView())
+    .config(.center)        //.style(.center)
+
+PopupUI
+    .show(BottomView())
+    .config(.bottom)
+```

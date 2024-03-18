@@ -15,7 +15,11 @@ public enum PopupPosition: String, CaseIterable {
     case center
 }
 
+public typealias PopupStyle = PopupConfiguration
+
 public class PopupConfiguration {
+    
+    public init() {}
 
     public static let `default` = PopupConfiguration()
         
@@ -52,6 +56,7 @@ public class PopupConfiguration {
     public var opacityTo: CGFloat?
     
     var status: PopupStatus = .notAppear
+    
 }
 
 extension PopupConfiguration {
@@ -133,13 +138,13 @@ extension PopupConfiguration {
     
     @discardableResult
     public func from(_ position: PopupPosition, _ animation: Animation = PopupAnimation.default.animation) -> Self {
-        from = PopupAnimation(position, animation: animation)
+        from = PopupAnimation(position, animation)
         return self
     }
     
     @discardableResult
     public func to(_ position: PopupPosition, _ animation: Animation = PopupAnimation.default.animation) -> Self {
-        to = PopupAnimation(position, animation: animation)
+        to = PopupAnimation(position, animation)
         return self
     }
     

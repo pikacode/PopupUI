@@ -30,7 +30,7 @@ struct PopupView: View {
     
     @StateObject var keyboardHelper = KeyboardHeightHelper()
     
-    let configuration: PopupConfiguration
+    var configuration: PopupConfiguration
     
     private let shoudHideSubject = CurrentValueSubject<Bool, Never>(false)
     

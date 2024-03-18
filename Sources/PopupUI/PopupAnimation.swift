@@ -9,7 +9,7 @@ import SwiftUI
 
 public class PopupAnimation {
     
-    public static var `default` = PopupAnimation(.center, animation: .spring(response: 0.4, dampingFraction: 0.6, blendDuration: 0.35))
+    public static var `default` = PopupAnimation(.center, .spring(response: 0.4, dampingFraction: 0.6, blendDuration: 0.35))
 
     public let position: PopupPosition
 
@@ -17,7 +17,7 @@ public class PopupAnimation {
     
     let duration: TimeInterval
 
-    public init(_ position: PopupPosition = PopupAnimation.default.position, animation: Animation = PopupAnimation.default.animation) {
+    public init(_ position: PopupPosition = PopupAnimation.default.position, _ animation: Animation = PopupAnimation.default.animation) {
         self.position = position
         self.animation = animation
         self.duration = animation.duration

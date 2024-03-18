@@ -120,7 +120,7 @@ PopupUI
 
   
 
-### 全局设置默认参数 
+#### 全局设置默认参数 
 通过设置 `PopupConfiguration.default` 以对自定义参数进行全局统一配置，简化弹出代码：
 
 ```swift
@@ -137,4 +137,35 @@ PopupConfiguration
     .stay(2)
     .to(.center)
     ...
+```
+  
+   
+
+#### 定义几个样式模板
+将 App 中所有样式定义为几个模板，以简化弹出代码：
+
+```swift
+extension PopupConfiguration {      //PopupStyle
+    static let center: PopupConfiguration {
+            PopupConfiguration()
+                        .from(.center)
+                        .to(.center, .easeOut)
+                        ...
+    }
+    
+    static let bottom: PopupConfiguration {
+            PopupConfiguration()
+                        .from(.bottom)
+                        .isOpaque(false)
+                        ...                                    
+    }
+}
+                                    
+PopupUI
+    .show(CenterView())
+    .config(.center)        //.style(.center)
+
+PopupUI
+    .show(BottomView())
+    .config(.bottom)
 ```
