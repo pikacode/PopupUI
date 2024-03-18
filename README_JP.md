@@ -121,7 +121,7 @@ PopupUI
 
   
 
-####　グローバル設定
+#### グローバル設定
 `PopupConfiguration.default` を使用してデフォルトのパラメータをカスタマイズして、ポップアップコードを簡素化できます：
 ```swift
 let configuration = PopupConfiguration()
