@@ -93,6 +93,10 @@ PopupUI
     .isAvoidKeyboard(true)                  // Whether to avoid the keyboard
     .isOpaque(true)                         // Whether to prevent the user from interacting with the background view
     .dismissWhenTapBackground(true)         // Whether to hide when the background view is tapped
+    .scaleFrom(0.5)                         // show: value -> 1
+    .scaleTo(0.5)                           // hide: 1 -> value
+    .opacityFrom(0.5)                       // show: value -> 1
+    .opacityTo(0.5)                         // hide: 1 -> value
     .dismissCallback { id in                // The callback when the view is hidden
         print("Popup dismissed: \(id)")
     }

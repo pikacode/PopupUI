@@ -92,6 +92,10 @@ PopupUI
     .isAvoidKeyboard(true)                  // キーボードを避ける
     .isOpaque(true)                         // 背景後のビューとのインタラクションを防ぐ
     .dismissWhenTapBackground(true)         // 背景をタップして非表示
+    .scaleFrom(0.5)                         // 表示時 value -> 1
+    .scaleTo(0.5)                           // 非表示時 1 -> value
+    .opacityFrom(0.5)                       // 表示時 value -> 1
+    .opacityTo(0.5)                         // 非表示時 1 -> value
     .dismissCallback { id in                // 非表示時のコールバック
         print("Popup dismissed: \(id)")
     }

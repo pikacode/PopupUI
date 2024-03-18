@@ -29,7 +29,7 @@ struct ContentView: View {
                         .onTapGesture {
                             PopupUI
                                 .show(AnyCustomView())
-                                .from(from)     //also .from(.center, .easeIn(duration: 0.3))
+                                .from(from)     //also .from(.center, .easeIn(duration: 0.3), scale: 0.5, opacity: 0.5)
                                 .stay(stay)
                                 .to(to)
                                 .background(backgroundColor)
