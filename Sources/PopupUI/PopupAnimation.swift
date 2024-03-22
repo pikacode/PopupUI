@@ -11,7 +11,7 @@ public class PopupAnimation {
     
     public static var `default` = PopupAnimation(.center, .spring(response: 0.4, dampingFraction: 0.7, blendDuration: 0.35))
 
-    public let position: PopupPosition
+    public var position: PopupPosition
 
     public var animation: Animation
     
@@ -23,6 +23,20 @@ public class PopupAnimation {
         self.duration = animation.duration
     }
 
+}
+
+extension PopupAnimation {
+    @discardableResult
+    public func position(_ position: PopupPosition) -> PopupAnimation {
+        self.position = position
+        return self
+    }
+    
+    @discardableResult
+    public func animation(_ animation: Animation) -> PopupAnimation {
+        self.animation = animation
+        return self
+    }
 }
 
 extension Animation {
