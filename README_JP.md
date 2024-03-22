@@ -90,12 +90,13 @@ PopupUI
     .isSafeArea(true)                       // セーフエリアを考慮する
     .id("Unique Popup ID")                  // ユニークな識別子、指定しない場合、デフォルトで同じ id が使用されるため、一度に 1 つのポップアップのみが表示され、異なる id を設定すると複数のポップアップを同時に表示できます
     .isAvoidKeyboard(true)                  // キーボードを避ける
-    .isOpaque(true)                         // 背景後のビューとのインタラクションを防ぐ
+    .isBackgroundOpaque(true)               // 背景後のビューとのインタラクションを防ぐ
     .dismissWhenTapBackground(true)         // 背景をタップして非表示
     .scaleFrom(0.5)                         // 表示時 value -> 1
     .scaleTo(0.5)                           // 非表示時 1 -> value
     .opacityFrom(0.5)                       // 表示時 value -> 1
     .opacityTo(0.5)                         // 非表示時 1 -> value
+    .duplicatedIdBehavior(.ignore)          // id 重複時：.replace 最新を表示 / .ignore 最新を無視
     .dismissCallback { id in                // 非表示時のコールバック
         print("Popup dismissed: \(id)")
     }

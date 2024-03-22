@@ -24,7 +24,7 @@ struct PopupModifier: ViewModifier {
                     configuration.background
                         .opacity(backgroundOpacity)
                         .animation(backgroundAnimation, value: UUID())
-                        .allowsHitTesting(configuration.isOpaque)
+                        .allowsHitTesting(configuration.isBackgroundOpaque)
                         .onTapGesture {
                             if let popup = PopupUI.popups.last(where: { $0.configuration.dismissWhenTapBackground }) {
                                 PopupUI.hide(popup.uniqueID)

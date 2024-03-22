@@ -9,20 +9,34 @@
 /* Begin PBXBuildFile section */
 		2644805B2BA6352E0089B2A4 /* PopupUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2644805A2BA6352E0089B2A4 /* PopupUI */; };
 		26F3C6D92BA5EBAC0045F66C /* PopupUI in Frameworks */ = {isa = PBXBuildFile; productRef = 26F3C6D82BA5EBAC0045F66C /* PopupUI */; };
+		66B1F4E72BAD11AE00450B68 /* CopyPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B1F4E62BAD11AE00450B68 /* CopyPad.swift */; };
+		66B1F4E92BAD12CD00450B68 /* JustText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B1F4E82BAD12CD00450B68 /* JustText.swift */; };
+		66B1F4EB2BAD158200450B68 /* CenterConfirmDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B1F4EA2BAD158200450B68 /* CenterConfirmDialog.swift */; };
+		66B1F4ED2BAD191300450B68 /* SideSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B1F4EC2BAD191300450B68 /* SideSheet.swift */; };
+		66B1F4EF2BAD2BEA00450B68 /* BottomConfirmDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B1F4EE2BAD2BEA00450B68 /* BottomConfirmDialog.swift */; };
+		66B1F4F12BAD42FB00450B68 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B1F4F02BAD42FB00450B68 /* NotificationView.swift */; };
+		66B1F4F32BAD44DB00450B68 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B1F4F22BAD44DB00450B68 /* ToastView.swift */; };
 		66EDA78E2BA18B320001DE4C /* PopupUI_demoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EDA78D2BA18B320001DE4C /* PopupUI_demoApp.swift */; };
 		66EDA7902BA18B320001DE4C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EDA78F2BA18B320001DE4C /* ContentView.swift */; };
 		66EDA7922BA18B330001DE4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66EDA7912BA18B330001DE4C /* Assets.xcassets */; };
 		66EDA7952BA18B330001DE4C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66EDA7942BA18B330001DE4C /* Preview Assets.xcassets */; };
-		66EDA7A92BA29F6A0001DE4C /* AnyCustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EDA7A82BA29F6A0001DE4C /* AnyCustomView.swift */; };
+		66EDA7A92BA29F6A0001DE4C /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EDA7A82BA29F6A0001DE4C /* InputView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		66B1F4E62BAD11AE00450B68 /* CopyPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyPad.swift; sourceTree = "<group>"; };
+		66B1F4E82BAD12CD00450B68 /* JustText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustText.swift; sourceTree = "<group>"; };
+		66B1F4EA2BAD158200450B68 /* CenterConfirmDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterConfirmDialog.swift; sourceTree = "<group>"; };
+		66B1F4EC2BAD191300450B68 /* SideSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideSheet.swift; sourceTree = "<group>"; };
+		66B1F4EE2BAD2BEA00450B68 /* BottomConfirmDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomConfirmDialog.swift; sourceTree = "<group>"; };
+		66B1F4F02BAD42FB00450B68 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		66B1F4F22BAD44DB00450B68 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		66EDA78A2BA18B320001DE4C /* PopupUI-demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PopupUI-demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		66EDA78D2BA18B320001DE4C /* PopupUI_demoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupUI_demoApp.swift; sourceTree = "<group>"; };
 		66EDA78F2BA18B320001DE4C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		66EDA7912BA18B330001DE4C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		66EDA7942BA18B330001DE4C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		66EDA7A82BA29F6A0001DE4C /* AnyCustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyCustomView.swift; sourceTree = "<group>"; };
+		66EDA7A82BA29F6A0001DE4C /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +52,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		66B1F4E42BAD10CF00450B68 /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				66EDA7A82BA29F6A0001DE4C /* InputView.swift */,
+				66B1F4E82BAD12CD00450B68 /* JustText.swift */,
+				66B1F4EA2BAD158200450B68 /* CenterConfirmDialog.swift */,
+				66B1F4EC2BAD191300450B68 /* SideSheet.swift */,
+				66B1F4EE2BAD2BEA00450B68 /* BottomConfirmDialog.swift */,
+				66B1F4F02BAD42FB00450B68 /* NotificationView.swift */,
+				66B1F4F22BAD44DB00450B68 /* ToastView.swift */,
+				66B1F4E62BAD11AE00450B68 /* CopyPad.swift */,
+			);
+			path = "Custom Views";
+			sourceTree = "<group>";
+		};
 		66EDA7812BA18B320001DE4C = {
 			isa = PBXGroup;
 			children = (
@@ -60,7 +89,7 @@
 			children = (
 				66EDA78D2BA18B320001DE4C /* PopupUI_demoApp.swift */,
 				66EDA78F2BA18B320001DE4C /* ContentView.swift */,
-				66EDA7A82BA29F6A0001DE4C /* AnyCustomView.swift */,
+				66B1F4E42BAD10CF00450B68 /* Custom Views */,
 				66EDA7912BA18B330001DE4C /* Assets.xcassets */,
 				66EDA7932BA18B330001DE4C /* Preview Content */,
 			);
@@ -159,9 +188,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66B1F4EB2BAD158200450B68 /* CenterConfirmDialog.swift in Sources */,
+				66B1F4E92BAD12CD00450B68 /* JustText.swift in Sources */,
+				66B1F4E72BAD11AE00450B68 /* CopyPad.swift in Sources */,
 				66EDA7902BA18B320001DE4C /* ContentView.swift in Sources */,
+				66B1F4F32BAD44DB00450B68 /* ToastView.swift in Sources */,
+				66B1F4ED2BAD191300450B68 /* SideSheet.swift in Sources */,
 				66EDA78E2BA18B320001DE4C /* PopupUI_demoApp.swift in Sources */,
-				66EDA7A92BA29F6A0001DE4C /* AnyCustomView.swift in Sources */,
+				66EDA7A92BA29F6A0001DE4C /* InputView.swift in Sources */,
+				66B1F4EF2BAD2BEA00450B68 /* BottomConfirmDialog.swift in Sources */,
+				66B1F4F12BAD42FB00450B68 /* NotificationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -3,7 +3,7 @@
 //  PopupUI-demo
 //
 //  Created by wxc on 2024/03/13.
-//
+// 280x608
 
 import SwiftUI
 import PopupUI
@@ -11,12 +11,11 @@ import PopupUI
 struct ContentView: View {
     
     @State var from: PopupPosition = .center
-    @State var to: PopupPosition = .center
     
     @State var backgroundColor: Color = .black.opacity(0.5)
     @State var stay: TimeInterval = 2
     @State var padding: CGFloat = 0
-    @State var isSafeArea: Bool = false
+    @State var isSafeArea: Bool = true
     
     var body: some View {
         List {
@@ -28,13 +27,13 @@ struct ContentView: View {
                         .buttonStyle()
                         .onTapGesture {
                             PopupUI
-                                .show(AnyCustomView())
+                                .show(GetCustomView())
                                 .from(from)     //also .from(.center, .easeIn(duration: 0.3), scale: 0.5, opacity: 0.5)
                                 .stay(stay)
-                                .to(to)
                                 .background(backgroundColor)
                                 .padding(padding * 10)
                                 .isSafeArea(isSafeArea)
+                                .dismissWhenTapBackground(true)
                                 .dismissCallback { id in
                                     print("dismissed ID: \(id)")
                                 }
@@ -56,17 +55,9 @@ struct ContentView: View {
                                 .id($0)
                         }
                     }
-                                        
-                    Picker("To", selection: $to) {
-                        ForEach(PopupPosition.allCases, id: \.self) {
-                            Text($0.rawValue.capitalized)
-                                .id($0)
-                        }
-                    }
+                    Stepper("Stay:      \(Int(stay))", value: $stay, in: 0...100)
                     
                     ColorPicker("Background", selection: $backgroundColor)
-
-                    Stepper("Stay:      \(Int(stay))", value: $stay, in: 0...100)
 
                     Stepper("Padding:       \(Int(padding * 10))", value: $padding, in: 0...50)
                     
@@ -79,48 +70,56 @@ struct ContentView: View {
             }
             
             Section {
-                VStack {
-                    HStack {
-                        Image(systemName: "doc.on.doc")
-                            .padding(.vertical, 8)
-                            .foregroundColor(.blue)
-                            .onTapGesture {
-                                UIPasteboard.general.string = code
-                                PopupUI
-                                    .show(
-                                        Text("Copy success!")
-                                            .padding()
-                                            .foregroundColor(.white)
-                                            .background(Color.black.opacity(0.7))
-                                            .cornerRadius(8)
-                                    )
-                                    .stay(2)
-                            }
-                        Spacer()
-                    }
-                    
-                    Text(code)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .foregroundColor(.black.opacity(0.9))
-                    .background(.black.opacity(0.05))
-                    .cornerRadius(10)
-                    .padding(.bottom)
-                }
+                CopyPad(code: code)
             } header: {
                 Text("Code Generation")
             }
             
         }
-        
     }
     
+}
+
+extension ContentView {
+    
+    @ViewBuilder
+    func GetCustomView() -> some View {
+        switch from {
+        case .center:
+            if stay > 2 {
+                CenterConfirmDialog()
+            } else {
+                JustText()
+            }
+            
+        case .bottom:
+            if padding > 0 || isSafeArea {
+                InputView()
+            } else {
+                BottomConfirmDialog()
+            }
+            
+        case .left, .right:
+            SideSheet()
+            
+        case .top:
+            if padding > 0 || isSafeArea {
+                NotificationView()
+            } else {
+                TopToastView()
+            }
+        }
+    }
+    
+}
+
+extension ContentView {
     var code: String {
                                     """
                                     PopupUI
                                         .show(AnyCustomView())
                                         .from(.\(from.rawValue))
                                         .stay(\(Int(stay)))
-                                        .to(.\(to.rawValue))
                                         .background(.backgroundColor)
                                         .padding(\(Int(padding * 10)))
                                         .isSafeArea(\(isSafeArea))
@@ -129,21 +128,6 @@ struct ContentView: View {
                                         .hide()
                                     """
     }
-
-    
-}
-
-extension View {
-    
-    func buttonStyle() -> some View {
-        self
-            .frame(width: 88)
-            .padding(.vertical, 4)
-            .foregroundColor(.white)
-            .background(.blue)
-            .cornerRadius(10)
-    }
-    
 }
 
 #Preview {

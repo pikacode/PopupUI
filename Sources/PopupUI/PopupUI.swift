@@ -76,7 +76,10 @@ public class PopupUI: ObservableObject {
 // MARK: - Configuration
 extension PopupUI {
     
-    var configuration: PopupConfiguration { popupView.configuration }
+    var configuration: PopupConfiguration {
+        set { popupView.configuration = newValue }
+        get { popupView.configuration }
+    }
     
     @discardableResult
     public func id(_ v: PopupViewID) -> Self {
@@ -119,6 +122,7 @@ extension PopupUI {
         configuration.from = PopupAnimation(position, animation)
         configuration.scaleFrom = scale
         configuration.opacityFrom = opacity
+        to(position, animation, scale: scale, opacity: opacity)
         return self
     }
     
@@ -131,8 +135,8 @@ extension PopupUI {
     }
     
     @discardableResult
-    public func isOpaque(_ v: Bool) -> Self {
-        configuration.isOpaque = v
+    public func isBackgroundOpaque(_ v: Bool) -> Self {
+        configuration.isBackgroundOpaque = v
         return self
     }
     
@@ -194,13 +198,19 @@ extension PopupUI {
     
     @discardableResult
     public func config(_ config: PopupConfiguration) -> Self {
-        popupView.configuration = config
+        configuration = config
         return self
     }
     
     @discardableResult
     public func style(_ style: PopupStyle) -> Self {
-        popupView.configuration = style
+        configuration = style
+        return self
+    }
+    
+    @discardableResult
+    public func duplicatedIdBehavior(_ v: PopupDuplicatedIdBehavior) -> Self {
+        configuration.duplicatedIdBehavior = v
         return self
     }
     

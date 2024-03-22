@@ -17,6 +17,11 @@ public enum PopupPosition: String, CaseIterable {
 
 public typealias PopupStyle = PopupConfiguration
 
+public enum PopupDuplicatedIdBehavior {
+    case replace
+    case ignore
+}
+
 public class PopupConfiguration {
     
     public init() {}
@@ -33,13 +38,13 @@ public class PopupConfiguration {
 
     public var dismissWhenTapBackground = false
         
-    public var background: AnyView = AnyView(Color.clear)
+    public var background: AnyView = AnyView(Color.black.opacity(0.5))
     
     public var padding: CGFloat = 0
     
     public var isSafeArea: Bool = false
     
-    public var isOpaque: Bool = true
+    public var isBackgroundOpaque: Bool = true
     
     public var isAvoidKeyboard = true
     
@@ -55,6 +60,8 @@ public class PopupConfiguration {
     
     public var opacityTo: CGFloat?
     
+    public var duplicatedIdBehavior: PopupDuplicatedIdBehavior = .replace
+    
     var status: PopupStatus = .notAppear
     
 }
@@ -68,7 +75,7 @@ extension PopupConfiguration {
         config.stay = stay
         config.to = to
         config.background = background
-        config.isOpaque = isOpaque
+        config.isBackgroundOpaque = isBackgroundOpaque
         config.isAvoidKeyboard = isAvoidKeyboard
         config.padding = padding
         config.isSafeArea = isSafeArea
@@ -149,8 +156,8 @@ extension PopupConfiguration {
     }
     
     @discardableResult
-    public func isOpaque(_ v: Bool) -> Self {
-        isOpaque = v
+    public func isBackgroundOpaque(_ v: Bool) -> Self {
+        isBackgroundOpaque = v
         return self
     }
     
@@ -213,6 +220,12 @@ extension PopupConfiguration {
     public func opacity(from: CGFloat, to: CGFloat) -> Self {
         opacityFrom(from)
         opacityTo(to)
+        return self
+    }
+    
+    @discardableResult
+    public func duplicatedIdBehavior(_ v: PopupDuplicatedIdBehavior) -> Self {
+        duplicatedIdBehavior = v
         return self
     }
     

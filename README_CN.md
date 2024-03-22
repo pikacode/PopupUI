@@ -7,10 +7,20 @@ SwiftUI で作られた PopupView は、簡単で使いやすいです！[『日
 
 
 ## 截图
-![](Screenshot/1.gif)
-  
+| 中间提示                   | 中间确认框                   | 底部确认框                |
+| -------------------------- | -------------------------- | ----------------------- |
+| ![](Screenshot/center_1.gif) | ![](Screenshot/center_2.gif) | ![](Screenshot/bottom_1.gif) |
+| 底部输入框                   | 侧边栏                   | 顶部通知                |
+| ![](Screenshot/bottom_2.gif) | ![](Screenshot/left.gif) | ![](Screenshot/top_1.gif) |
+| 顶部提示                   | 背景色                   | 生成代码                |
+| ![](Screenshot/top_2.gif) | ![](Screenshot/background.gif) | ![](Screenshot/code.gif) |
 
-   
+
+
+
+
+
+
 
 ## 安装
 
@@ -89,12 +99,13 @@ PopupUI
     .isSafeArea(true)                       // 是否在安全区域内
     .id("Unique Popup ID")                  // 唯一标识，不传时默认使用了同一个 id 所以一次只能弹出一个弹窗，可以通过设置不同的 id 来同时弹出多个弹窗
     .isAvoidKeyboard(true)                  // 是否避开键盘
-    .isOpaque(true)                         // 是否可以透过弹窗的背景点击后面的视图
+    .isBackgroundOpaque(true)               // 是否可以透过弹窗的背景点击后面的视图
     .dismissWhenTapBackground(true)         // 点击背景 是否隐藏
     .scaleFrom(0.5)                         // 显示时缩放 value -> 1
     .scaleTo(0.5)                           // 隐藏时缩放 1 -> value
     .opacityFrom(0)                         // 显示时透明度 value -> 1
     .opacityTo(0.5)                         // 隐藏时透明度 1 -> value
+		.duplicatedIdBehavior(.ignore)		// id 重复时：.replace 展示最新的 / .ignore 忽略最新的
     .dismissCallback { id in                // 隐藏时的回调
         print("Popup dismissed: \(id)")
     }
@@ -138,7 +149,7 @@ PopupConfiguration
     .to(.center)
     ...
 ```
-  
+
    
 
 #### 定义几个样式模板
