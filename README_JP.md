@@ -8,7 +8,13 @@ SwiftUI で作られた PopupView は、簡単で使いやすいです！
 
 
 ## スクリーンショット
-![](Screenshot/1.gif)
+|   中央のヒント                   | 中央の確認           | ボトム確認                |
+| -------------------------- | -------------------------- | ----------------------- |
+| ![](Screenshot/center_1.gif) | ![](Screenshot/center_2.gif) | ![](Screenshot/bottom_1.gif) |
+| ボトム入力ボックス                   | サイドバー                   | トップ通知                |
+| ![](Screenshot/bottom_2.gif) | ![](Screenshot/left.gif) | ![](Screenshot/top_1.gif) |
+| トップのヒント                   | 背景色                   | コード生成                |
+| ![](Screenshot/top_2.gif) | ![](Screenshot/background.gif) | ![](Screenshot/code.gif) |
 　　
 　　
 　　
