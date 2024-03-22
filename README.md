@@ -16,9 +16,9 @@ SwiftUI で作られた PopupView は、簡単で使いやすいです！[『日
 | ![](Screenshot/bottom_2.gif) | ![](Screenshot/left.gif) | ![](Screenshot/top_1.gif) |
 | Top Prompt                   | Background Color                   | Code Generation                |
 | ![](Screenshot/top_2.gif) | ![](Screenshot/background.gif) | ![](Screenshot/code.gif) |
-　　
-　　
-　　
+
+
+　
 ## Installation
 
 ### Swift Package Manager
