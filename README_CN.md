@@ -1,7 +1,7 @@
 # PopupUI
 Easy to Toast & Popup any View by SwiftUI！ [*English README*](README.md)
 
-SwiftUI 实现的弹窗控件，简单易用！
+**SwiftUI 实现的弹窗控件，简单易用！**
 
 SwiftUI で作られた PopupView は、簡単で使いやすいです！[『日本語のドキュメント』](README_JP.md)
 
