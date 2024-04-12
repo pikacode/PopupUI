@@ -101,7 +101,7 @@ PopupUI
     .scaleTo(0.5)                           // 隐藏时缩放 1 -> value
     .opacityFrom(0)                         // 显示时透明度 value -> 1
     .opacityTo(0.5)                         // 隐藏时透明度 1 -> value
-		.duplicatedIdBehavior(.ignore)		// id 重复时：.replace 展示最新的 / .ignore 忽略最新的
+    .duplicatedIdBehavior(.ignore)	    	// id 重复时：.replace 展示最新的 / .ignore 忽略最新的
     .dismissCallback { id in                // 隐藏时的回调
         print("Popup dismissed: \(id)")
     }
