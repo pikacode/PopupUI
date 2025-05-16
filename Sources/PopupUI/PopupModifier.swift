@@ -13,9 +13,17 @@ struct PopupModifier: ViewModifier {
     
     var backgroundDuration: TimeInterval { (configuration.from.duration) / 2 }
     
-    var configuration: PopupConfiguration { PopupUI.popups.last?.configuration ?? PopupConfiguration.default }
+    let scope: PopupScope
+    
+    var configuration: PopupConfiguration { popups.last?.configuration ?? PopupConfiguration.default }
     
     @StateObject var keyboardHelper = KeyboardHeightHelper()
+    
+    var popups: [PopupUI] { PopupUI.popups.filter({ $0.configuration.scope == scope }) }
+    
+    init(scope: PopupScope = .global) {
+        self.scope = scope
+    }
     
     func body(content: Content) -> some View {
         content
@@ -26,21 +34,29 @@ struct PopupModifier: ViewModifier {
                         .animation(backgroundAnimation, value: UUID())
                         .allowsHitTesting(configuration.isBackgroundOpaque)
                         .onTapGesture {
-                            if let popup = PopupUI.popups.last(where: { $0.configuration.dismissWhenTapBackground }) {
+                            if let popup = popups.last(where: { $0.configuration.dismissWhenTapBackground }) {
                                 PopupUI.hide(popup.uniqueID)
                             }
                         }
                     
-                    ForEach(PopupUI.popups, id: \.uniqueID) {
+                    ForEach(popups, id: \.uniqueID) {
                         $0.popupView
                     }
                 }
                 .edgesIgnoringSafeArea(.all)
             }
+//            .overlay(content: {
+//                GeometryReader(content: { geometry in
+//                    EmptyView()
+//                        .onAppear(perform: {
+//                            PopupScope.sizes[scope.id] = geometry.size
+//                        })
+//                })
+//            })
     }
     
     var backgroundAnimation: Animation? {
-        guard let last = PopupUI.popups.last else { return nil }
+        guard let last = popups.last else { return nil }
         switch last.configuration.status {
         case .show:
             return last.configuration.from.animation
@@ -52,9 +68,9 @@ struct PopupModifier: ViewModifier {
     }
     
     var backgroundOpacity: CGFloat {
-        switch PopupUI.popups.count {
+        switch popups.count {
         case 1:
-            if let status = PopupUI.popups.last?.configuration.status {
+            if let status = popups.last?.configuration.status {
                 switch status {
                 case .show:
                     return 1

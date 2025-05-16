@@ -89,7 +89,7 @@ PopupUI
     .show(YourCustomView())                 // 自定义视图
     .from(.bottom)                          // 显示的方向
     .stay(2)                                // 显示时间
-    .to(.center, .easeOut(duration: 0.3))   // 隐藏的方向并指定动画与时间
+    .to(.center, .easeOut(duration: 0.3))   // 隐藏的方向并指定动画与时间，默认被设为与 from 相等的值
     .background(Color.black.opacity(0.3))   // 背景
     .padding(24)                            // 从各方向弹出时增加的偏移量
     .isSafeArea(true)                       // 是否在安全区域内

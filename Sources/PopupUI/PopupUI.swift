@@ -8,15 +8,18 @@
 import SwiftUI
 
 extension View {
-    public func popupUI() -> some View {
-        self.modifier(PopupModifier())
-            .environmentObject(PopupState.shared)
+    public func popupUI(scope: PopupScope = .global) -> some View {
+        self
+            .modifier(PopupModifier(scope: scope))
+            .environmentObject(PopupState.global)
     }
 }
 
 public class PopupUI: ObservableObject {
     
     public static var sharedId: PopupViewID = "PopupUI.ID.Shared"
+    
+    public var isShowing: Bool { configuration.status == .show }
     
     static var popups: [PopupUI] = [] {
         didSet {
@@ -31,7 +34,7 @@ public class PopupUI: ObservableObject {
         get { popupView.id }
     }
     
-    @ObservedObject var state = PopupState()
+    @ObservedObject var state = PopupState.global
     
     @discardableResult
     public static func show<PopupContent: View>(@ViewBuilder _ view: @escaping () -> PopupContent,
@@ -69,6 +72,10 @@ public class PopupUI: ObservableObject {
                 }
             }
         }
+    }
+    
+    public static func isShowing(_ id: PopupViewID) -> Bool {
+        popups.contains(where: { $0.id == id && $0.isShowing })
     }
     
 }
@@ -153,6 +160,12 @@ extension PopupUI {
     }
     
     @discardableResult
+    public func insets(top: CGFloat = 0, left: CGFloat = 0, bottom: CGFloat = 0, right: CGFloat = 0) -> Self {
+        configuration.insets = UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
+        return self
+    }
+    
+    @discardableResult
     public func isSafeArea(_ v: Bool) -> Self {
         configuration.isSafeArea = v
         return self
@@ -214,15 +227,35 @@ extension PopupUI {
         return self
     }
     
+    @discardableResult
+    public func scope(_ v: PopupScope) -> Self {
+        configuration.scope = v
+        return self
+    }
+    
 }
 
 class PopupState: ObservableObject {
-    static let shared = PopupState()
+    
+    static let global: PopupState = {
+        let p = PopupState(scope: .global)
+        PopupState.states.append(p)
+        return p
+    }()
+    
     @Published var id = UUID()
     @Published var status: PopupStatus = .hide
     
+    let scope: PopupScope
+    
+    init(scope: PopupScope) {
+        self.scope = scope
+    }
+    
+    static var states: [PopupState] = []
+    
     static func update() {
-        shared.id = UUID()
+        global.id = UUID()
     }
 }
 

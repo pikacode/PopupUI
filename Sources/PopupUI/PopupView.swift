@@ -166,8 +166,10 @@ extension PopupView {
         }
     }
     
-    var screenWith: CGFloat { UIScreen.main.bounds.width }
-    var screenHeight: CGFloat { UIScreen.main.bounds.height }
+    var boundsSize: CGSize { configuration.scope.size }
+    
+    var screenWith: CGFloat { boundsSize.width }
+    var screenHeight: CGFloat { boundsSize.height }
     var width: CGFloat { size.width }
     var height: CGFloat { size.height }
     
@@ -193,10 +195,10 @@ extension PopupView {
             insets.bottom += keyboardHelper.keyboardHeight
             insets.bottom += configuration.keyboardPadding
         }
-        
+                
         switch configuration.from.position {
         case .center:
-            return CGSize.zero
+            return CGSize(width: insets.left - insets.right, height: insets.top - insets.bottom)
         case .top:
             return CGSize(width: 0, height: -(screenHeight - height) / 2 + insets.top)
         case .bottom:

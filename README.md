@@ -90,7 +90,7 @@ Customize various parameters:
 PopupUI
     .show(YourCustomView())                 // The view to be shown
     .from(.bottom)                          // The direction from which the view is shown
-    .stay(2)                                // The duration of the view staying
+    .stay(2)                                // The duration of the view staying, defaults to the from value
     .to(.center, .easeOut(duration: 0.3))   // The direction to which the view is hidden and the animation
     .background(Color.black.opacity(0.3))   // The background view
     .padding(24)                            // The padding of the view

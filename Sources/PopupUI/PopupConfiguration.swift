@@ -22,6 +22,32 @@ public enum PopupDuplicatedIdBehavior {
     case ignore
 }
 
+public enum PopupScope: Equatable {
+    
+    public typealias ScopeId = String
+    
+    case global
+    case custom(id: ScopeId)
+    
+    var id: String {
+        switch self {
+        case .global:
+            return "PopupScope.ID.Global"
+        case .custom(let id):
+            return id
+        }
+    }
+    
+    public static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    static var sizes: [ScopeId: CGSize] = [:]
+    
+    var size: CGSize { PopupScope.sizes[id] ?? UIScreen.main.bounds.size }
+
+}
+
 public class PopupConfiguration {
     
     public init() {}
@@ -41,6 +67,8 @@ public class PopupConfiguration {
     public var background: AnyView = AnyView(Color.black.opacity(0.5))
     
     public var padding: CGFloat = 0
+    
+    public var insets: UIEdgeInsets = UIEdgeInsets()
     
     public var isSafeArea: Bool = false
     
@@ -62,6 +90,8 @@ public class PopupConfiguration {
     
     public var duplicatedIdBehavior: PopupDuplicatedIdBehavior = .replace
     
+    public var scope: PopupScope = .global
+    
     var status: PopupStatus = .notAppear
     
 }
@@ -81,6 +111,14 @@ extension PopupConfiguration {
         config.isSafeArea = isSafeArea
         config.keyboardPadding = keyboardPadding
         config.dismissCallback = dismissCallback
+        config.scaleFrom = scaleFrom
+        config.scaleTo = scaleTo
+        config.opacityFrom = opacityFrom
+        config.opacityTo = opacityTo
+        config.duplicatedIdBehavior = duplicatedIdBehavior
+        config.scope = scope
+        config.status = status
+        config.insets = insets
         return config
     }
     
@@ -96,9 +134,9 @@ extension PopupConfiguration {
         if isSafeArea {
             let left = window?.safeAreaInsets.left ?? 0
             let right = window?.safeAreaInsets.right ?? 0
-            return UIEdgeInsets(top: top + padding, left: left + padding, bottom: bottom + padding + systemPadding, right: right + padding)
+            return UIEdgeInsets(top: top + padding + insets.top, left: left + padding + insets.left, bottom: bottom + padding + systemPadding + insets.bottom, right: right + padding + insets.right)
         } else {
-            return UIEdgeInsets(top: padding, left: padding, bottom: padding + systemPadding, right: padding)
+            return UIEdgeInsets(top: padding + insets.top, left: padding + insets.left, bottom: padding + systemPadding + insets.bottom, right: padding + insets.right)
         }
     }
     
@@ -170,6 +208,12 @@ extension PopupConfiguration {
     @discardableResult
     public func padding(_ v: CGFloat) -> Self {
         padding = v
+        return self
+    }
+    
+    @discardableResult
+    public func insets(_ edgeInsets: UIEdgeInsets) -> Self {
+        insets = edgeInsets
         return self
     }
     

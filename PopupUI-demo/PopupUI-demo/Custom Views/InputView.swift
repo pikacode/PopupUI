@@ -17,10 +17,6 @@ struct InputView: View {
             Text("Hello, PopupUI!")
                 .padding()
             
-//            Image(systemName: "star.fill")
-//                .font(.system(size: 30))
-//                .foregroundColor(.yellow.opacity(0.7))
-            
             TextField("keyboard avoiding", text: $text)
                 .foregroundColor(.black.opacity(0.5))
                 .padding(.vertical, 8)
