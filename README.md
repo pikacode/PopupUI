@@ -96,7 +96,7 @@ PopupUI
     .padding(24)                            // The padding of the view
     .isSafeArea(true)                       // Whether to avoid the safe area
     .id("Unique Popup ID")                  // The unique identifier, when not passed, the same id is used by default, so only one popup can be displayed at a time, you can display multiple popups at the same time by setting different ids
-    .isAvoidKeyboard(true)                  // Whether to avoid the keyboard
+    .avoidKeyboard(true)                  // Whether to avoid the keyboard
     .isBackgroundOpaque(true)               // Whether to prevent the user from interacting with the background view
     .dismissWhenTapBackground(true)         // Whether to hide when the background view is tapped
     .scaleFrom(0.5)                         // show: value -> 1
