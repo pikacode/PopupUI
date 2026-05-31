@@ -94,7 +94,7 @@ PopupUI
     .padding(24)                            // 从各方向弹出时增加的偏移量
     .isSafeArea(true)                       // 是否在安全区域内
     .id("Unique Popup ID")                  // 唯一标识，不传时默认使用了同一个 id 所以一次只能弹出一个弹窗，可以通过设置不同的 id 来同时弹出多个弹窗
-    .isAvoidKeyboard(true)                  // 是否避开键盘
+    .avoidKeyboard(true)                  // 是否避开键盘
     .isBackgroundOpaque(true)               // 是否可以透过弹窗的背景点击后面的视图
     .dismissWhenTapBackground(true)         // 点击背景 是否隐藏
     .scaleFrom(0.5)                         // 显示时缩放 value -> 1

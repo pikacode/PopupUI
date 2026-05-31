@@ -95,7 +95,7 @@ PopupUI
     .padding(24)                            // ビューの余白
     .isSafeArea(true)                       // セーフエリアを考慮する
     .id("Unique Popup ID")                  // ユニークな識別子、指定しない場合、デフォルトで同じ id が使用されるため、一度に 1 つのポップアップのみが表示され、異なる id を設定すると複数のポップアップを同時に表示できます
-    .isAvoidKeyboard(true)                  // キーボードを避ける
+    .avoidKeyboard(true)                  // キーボードを避ける
     .isBackgroundOpaque(true)               // 背景後のビューとのインタラクションを防ぐ
     .dismissWhenTapBackground(true)         // 背景をタップして非表示
     .scaleFrom(0.5)                         // 表示時 value -> 1
